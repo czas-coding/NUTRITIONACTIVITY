@@ -1,0 +1,2007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clinical Nutrition &amp; Therapeutic Diets — Interactive Reference &amp; Landscape Matrix</title>
+
+  <!-- Google Fonts: Newsreader (Editorial Serif), Plus Jakarta Sans (Clean Sans), JetBrains Mono (Clinical Tags) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            paper: '#FAF8F5',
+            paperAlt: '#F3EFEA',
+            ink: '#18181B',
+            inkMuted: '#52525B',
+            terracotta: '#B44C32',
+            terracottaSoft: '#FDF3F0',
+            sage: '#2E5A44',
+            sageSoft: '#EFF6F2',
+            slateClinical: '#1E3A5F',
+            slateSoft: '#EFF4FA',
+            ochre: '#9A6700',
+            ochreSoft: '#FEF9EC',
+            borderHairline: '#D6D1C9'
+          },
+          fontFamily: {
+            serif: ['Newsreader', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* Subtle Paper Grain Texture & Editorial Scrollbars */
+    body {
+      background-color: #FAF8F5;
+      color: #18181B;
+      background-image: radial-gradient(rgba(24, 24, 27, 0.035) 1px, transparent 0);
+      background-size: 20px 20px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Interactive SVG Tray Animations & Focus Rings */
+    .tray-hotspot {
+      cursor: pointer;
+      transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), filter 0.2s ease;
+      transform-origin: center;
+      transform-box: fill-box;
+    }
+    .tray-hotspot:hover,
+    .tray-hotspot:focus {
+      transform: scale(1.045);
+      filter: drop-shadow(0 6px 10px rgba(24, 24, 27, 0.16));
+      outline: none;
+    }
+    .tray-hotspot.active-spot {
+      filter: drop-shadow(0 0 0 2px #18181B) drop-shadow(0 6px 12px rgba(24, 24, 27, 0.22));
+    }
+
+    /* Pulse indicator for interactive hotspots */
+    @keyframes subtlePulse {
+      0%, 100% { opacity: 0.9; transform: scale(1); }
+      50% { opacity: 0.45; transform: scale(1.28); }
+    }
+    .hotspot-ring {
+      animation: subtlePulse 2.4s infinite ease-in-out;
+      transform-origin: center;
+      transform-box: fill-box;
+    }
+
+    /* Landscape Print Stylesheet for Full Matrix Table */
+    @media print {
+      @page {
+        size: landscape;
+        margin: 10mm;
+      }
+      body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        font-size: 8.5pt !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+      #matrixView {
+        display: block !important;
+      }
+      #explorerView {
+        display: none !important;
+      }
+      .matrix-table-wrapper {
+        overflow: visible !important;
+        border: none !important;
+        box-shadow: none !important;
+      }
+      table.clinical-matrix {
+        width: 100% !important;
+        border-collapse: collapse !important;
+        table-layout: fixed !important;
+      }
+      table.clinical-matrix th,
+      table.clinical-matrix td {
+        border: 1px solid #94a3b8 !important;
+        padding: 5px 6px !important;
+        font-size: 7.5pt !important;
+        line-height: 1.3 !important;
+        break-inside: avoid;
+      }
+      table.clinical-matrix tr {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+      table.clinical-matrix th {
+        background-color: #1E3A5F !important;
+        color: #ffffff !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+  </style>
+</head>
+<body class="font-sans text-ink selection:bg-slateClinical selection:text-white">
+
+  <!-- Toast Notification Banner (Replaces alert) -->
+  <div id="toastBanner" role="status" aria-live="polite" class="fixed bottom-5 right-5 z-50 hidden transform transition-all duration-300 translate-y-2 opacity-0">
+    <div class="bg-ink text-paper px-4 py-3 rounded-lg shadow-xl border border-stone-700 flex items-center gap-3 text-sm font-medium">
+      <span class="inline-block w-2 h-2 rounded-full bg-emerald-400"></span>
+      <span id="toastMessage">Citation copied to clipboard.</span>
+    </div>
+  </div>
+
+  <!-- Top Editorial Masthead -->
+  <header class="border-b border-borderHairline bg-paper/95 backdrop-blur sticky top-0 z-30 no-print">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2.5 mb-1">
+            <span class="font-mono text-[11px] uppercase tracking-widest px-2 py-0.5 rounded bg-slateSoft text-slateClinical border border-slateClinical/20 font-semibold">
+              Clinical Nutrition Atlas · 9 Core Diets
+            </span>
+            <span class="font-mono text-[11px] text-inkMuted hidden sm:inline">
+              Mechanistic &ldquo;Why &rarr; Because&rdquo; Architecture
+            </span>
+          </div>
+          <h1 class="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-ink">
+            Therapeutic Diets Clinical Reference Guide
+          </h1>
+        </div>
+
+        <!-- View Mode Switcher & Print Action -->
+        <div class="flex flex-wrap items-center gap-2.5">
+          <div class="inline-flex rounded-lg bg-paperAlt p-1 border border-borderHairline" role="tablist" aria-label="View mode">
+            <button id="btnExplorerView" type="button" role="tab" aria-selected="true"
+              class="px-3.5 py-2 rounded-md text-xs sm:text-sm font-semibold transition-all bg-ink text-paper shadow-sm flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+                <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+              </svg>
+              Interactive Visual Plate &amp; Deep-Dive
+            </button>
+            <button id="btnMatrixView" type="button" role="tab" aria-selected="false"
+              class="px-3.5 py-2 rounded-md text-xs sm:text-sm font-semibold transition-all text-inkMuted hover:text-ink flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M3 5h18M3 10h18M3 15h18M3 20h18M9 5v15M15 5v15"></path>
+              </svg>
+              Landscape Matrix Table
+            </button>
+          </div>
+
+          <button id="btnPrintLandscape" type="button"
+            class="px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold border border-borderHairline bg-white hover:bg-paperAlt text-ink transition-colors flex items-center gap-2 shadow-xs"
+            title="Print or save landscape PDF table">
+            <svg class="w-4 h-4 text-slateClinical" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"></path>
+              <rect x="6" y="14" width="12" height="8"></rect>
+            </svg>
+            <span class="hidden sm:inline">Print Landscape PDF</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Search & Physiological Filter Controls -->
+      <div class="mt-4 pt-3 border-t border-borderHairline/70 flex flex-col md:flex-row md:items-center justify-between gap-3">
+        <!-- Category Filter Pills -->
+        <div class="flex flex-wrap items-center gap-1.5" id="categoryFilters">
+          <button type="button" data-filter="all"
+            class="filter-pill active-pill px-3 py-1.5 rounded-full text-xs font-semibold bg-slateClinical text-white transition-all">
+            All 9 Diets
+          </button>
+          <button type="button" data-filter="gi"
+            class="filter-pill px-3 py-1.5 rounded-full text-xs font-semibold bg-white text-inkMuted border border-borderHairline hover:border-ink/40 transition-all">
+            GI &amp; Post-Op (4)
+          </button>
+          <button type="button" data-filter="texture"
+            class="filter-pill px-3 py-1.5 rounded-full text-xs font-semibold bg-white text-inkMuted border border-borderHairline hover:border-ink/40 transition-all">
+            Swallowing &amp; Texture (3)
+          </button>
+          <button type="button" data-filter="metabolic"
+            class="filter-pill px-3 py-1.5 rounded-full text-xs font-semibold bg-white text-inkMuted border border-borderHairline hover:border-ink/40 transition-all">
+            Renal &amp; Metabolic (3)
+          </button>
+        </div>
+
+        <!-- Search Input -->
+        <div class="relative w-full md:w-80">
+          <svg class="w-4 h-4 text-inkMuted absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="M21 21l-4.35-4.35"></path>
+          </svg>
+          <input id="searchInput" type="search" placeholder="Search diets, pathophysiology, foods, 'why'..."
+            class="w-full pl-9 pr-3 py-1.5 text-sm bg-white border border-borderHairline rounded-lg focus:outline-none focus:ring-2 focus:ring-slateClinical/30 focus:border-slateClinical placeholder:text-inkMuted/70" />
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+
+    <!-- Legend Banner explaining the 5-Column WHY -> BECAUSE causal logic -->
+    <section class="mb-6 bg-white border border-borderHairline rounded-xl p-4 sm:p-5 shadow-xs no-print">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+        <div class="space-y-1">
+          <h2 class="font-serif text-lg font-bold text-ink">Clinical Causal Architecture: Every Column Decoded</h2>
+          <p class="text-xs sm:text-sm text-inkMuted max-w-4xl">
+            Every therapeutic diet across all 5 clinical columns includes an explicit <span class="font-mono font-semibold text-slateClinical">WHY</span> (physiological mechanism) paired with a <span class="font-mono font-semibold text-terracotta">BECAUSE</span> (cellular, organ, or mechanical consequence if followed or violated). Click items on each diet&rsquo;s SVG tray to inspect clinical specs.
+          </p>
+        </div>
+        <div class="flex flex-wrap items-center gap-3 shrink-0 text-xs">
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-slateSoft text-slateClinical font-mono font-semibold border border-slateClinical/20">
+            WHY = Mechanism
+          </span>
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-terracottaSoft text-terracotta font-mono font-semibold border border-terracotta/20">
+            BECAUSE = Organ/Tissue Effect
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- VIEW 1: INTERACTIVE VISUAL PLATE & DEEP-DIVE EXPLORER VIEW            -->
+    <!-- ===================================================================== -->
+    <div id="explorerView" class="space-y-8">
+      <!-- Quick Jump Diet Selector Strip -->
+      <nav aria-label="Quick diet jump" class="bg-paperAlt/80 border border-borderHairline rounded-xl p-2.5 flex items-center gap-2 overflow-x-auto no-print" id="quickJumpNav">
+        <!-- Populated dynamically via JS -->
+      </nav>
+
+      <!-- Diet Cards Container -->
+      <div id="dietCardsContainer" class="space-y-10">
+        <!-- Populated dynamically via JS -->
+      </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- VIEW 2: FULL LANDSCAPE REFERENCE MATRIX TABLE VIEW                    -->
+    <!-- ===================================================================== -->
+    <div id="matrixView" class="hidden">
+      <div class="mb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        <div>
+          <h2 class="font-serif text-xl sm:text-2xl font-bold text-ink">
+            Master Landscape Reference Matrix (All 5 Columns &times; 9 Diets)
+          </h2>
+          <p class="text-xs sm:text-sm text-inkMuted">
+            Structured horizontally for rapid clinical comparison and landscape PDF printing.
+          </p>
+        </div>
+        <span class="font-mono text-xs px-2.5 py-1 rounded bg-ochreSoft text-ochre border border-ochre/25 no-print">
+          Tip: Scroll horizontally on narrow screens or click &ldquo;Print Landscape PDF&rdquo;
+        </span>
+      </div>
+
+      <div class="matrix-table-wrapper overflow-x-auto bg-white border border-borderHairline rounded-xl shadow-xs">
+        <table class="clinical-matrix w-full min-w-[1220px] border-collapse text-left text-xs sm:text-[13px] leading-relaxed">
+          <thead>
+            <tr class="bg-slateClinical text-white">
+              <th scope="col" class="w-[14%] p-3.5 border border-slateClinical font-semibold">
+                1. Diet Category<br />
+                <span class="font-mono text-[10px] font-normal text-slate-200">Classification + Why / Because</span>
+              </th>
+              <th scope="col" class="w-[21%] p-3.5 border border-slateClinical font-semibold">
+                2. Indication / Pathophysiology<br />
+                <span class="font-mono text-[10px] font-normal text-slate-200">Clinical States + Why / Because</span>
+              </th>
+              <th scope="col" class="w-[21%] p-3.5 border border-slateClinical font-semibold">
+                3. Allowed Food / Examples<br />
+                <span class="font-mono text-[10px] font-normal text-slate-200">Permitted Items + Why / Because</span>
+              </th>
+              <th scope="col" class="w-[22%] p-3.5 border border-slateClinical font-semibold">
+                4. Prohibited / High-Risk Food<br />
+                <span class="font-mono text-[10px] font-normal text-slate-200">Restricted Items + Why / Because</span>
+              </th>
+              <th scope="col" class="w-[22%] p-3.5 border border-slateClinical font-semibold">
+                5. Rationale<br />
+                <span class="font-mono text-[10px] font-normal text-slate-200">Therapeutic Goal + Why / Because</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody id="matrixTableBody">
+            <!-- Populated dynamically via JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Empty Search State -->
+    <div id="emptyState" class="hidden text-center py-16 bg-white border border-borderHairline rounded-xl">
+      <p class="font-serif text-xl font-semibold text-ink mb-1">No matching therapeutic diets found</p>
+      <p class="text-sm text-inkMuted mb-4">Try clearing your search query or switching back to &ldquo;All 9 Diets&rdquo;.</p>
+      <button id="btnResetFilters" type="button" class="px-4 py-2 rounded-lg bg-ink text-paper text-xs font-semibold hover:bg-ink/90">
+        Reset Filters
+      </button>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- APA 7TH EDITION REFERENCES SECTION WITH LINKS & ONE-CLICK COPY        -->
+    <!-- ===================================================================== -->
+    <section aria-labelledby="referencesHeading" class="mt-14 pt-8 border-t-2 border-ink">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-6">
+        <div>
+          <span class="font-mono text-[11px] uppercase tracking-widest text-terracotta font-semibold">
+            Evidence-Based Clinical Sources
+          </span>
+          <h2 id="referencesHeading" class="font-serif text-2xl sm:text-3xl font-bold text-ink mt-0.5">
+            References (APA 7th Edition)
+          </h2>
+        </div>
+        <button id="btnCopyAllCitations" type="button"
+          class="self-start sm:self-auto px-3.5 py-2 rounded-lg bg-paperAlt hover:bg-borderHairline/60 border border-borderHairline text-xs font-semibold text-ink transition-colors flex items-center gap-2 no-print">
+          <svg class="w-4 h-4 text-slateClinical" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"></path>
+          </svg>
+          Copy All 6 APA Citations
+        </button>
+      </div>
+
+      <div id="referencesList" class="grid grid-cols-1 gap-4">
+        <!-- Populated dynamically via JS -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-borderHairline bg-paperAlt/60 mt-12 py-6 px-4 sm:px-6 lg:px-8 text-xs text-inkMuted">
+    <div class="max-w-[1440px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+      <p>Clinical Nutrition &amp; Therapeutic Diets Atlas · Standalone Single-File Web Application for Academic &amp; Clinical Reference.</p>
+      <p class="font-mono">Always individualize prescriptions per Registered Dietitian (RDN), Speech-Language Pathologist (SLP), and Attending Physician orders.</p>
+    </div>
+  </footer>
+
+  <!-- ===================================================================== -->
+  <!-- APPLICATION DATA & INTERACTIVE ENGINE (JAVASCRIPT)                    -->
+  <!-- ===================================================================== -->
+  <script>
+    'use strict';
+
+    // -------------------------------------------------------------------------
+    // 1. VERIFIED APA 7TH EDITION REFERENCES DATA
+    // -------------------------------------------------------------------------
+    const APA_REFERENCES = [
+      {
+        id: 'ref-cichero',
+        topic: 'Dysphagia & IDDSI Framework',
+        authorsYear: 'Cichero, J. A. Y., Lam, P., Steele, C. M., Hanson, B., Chen, J., Dantas, R. O., Duivestein, J., Kayashita, J., Lecko, C., Murray, J., Pillay, M., Riquelme, L., & Stanschus, S. (2017).',
+        title: 'Development of international terminology and definitions for texture-modified foods and thickened fluids used in dysphagia management: The IDDSI framework.',
+        journal: 'Dysphagia',
+        volumeIssuePages: '32(2), 293–314.',
+        url: 'https://doi.org/10.1007/s00455-016-9758-y',
+        plainText: 'Cichero, J. A. Y., Lam, P., Steele, C. M., Hanson, B., Chen, J., Dantas, R. O., Duivestein, J., Kayashita, J., Lecko, C., Murray, J., Pillay, M., Riquelme, L., & Stanschus, S. (2017). Development of international terminology and definitions for texture-modified foods and thickened fluids used in dysphagia management: The IDDSI framework. Dysphagia, 32(2), 293–314. https://doi.org/10.1007/s00455-016-9758-y'
+      },
+      {
+        id: 'ref-dahl',
+        topic: 'High-Fiber & Low-Residue Physiology',
+        authorsYear: 'Dahl, W. J., & Stewart, M. L. (2015).',
+        title: 'Position of the Academy of Nutrition and Dietetics: Health implications of dietary fiber.',
+        journal: 'Journal of the Academy of Nutrition and Dietetics',
+        volumeIssuePages: '115(11), 1861–1870.',
+        url: 'https://doi.org/10.1016/j.jand.2015.09.003',
+        plainText: 'Dahl, W. J., & Stewart, M. L. (2015). Position of the Academy of Nutrition and Dietetics: Health implications of dietary fiber. Journal of the Academy of Nutrition and Dietetics, 115(11), 1861–1870. https://doi.org/10.1016/j.jand.2015.09.003'
+      },
+      {
+        id: 'ref-evert',
+        topic: 'Carbohydrate-Controlled & Diabetes Therapy',
+        authorsYear: 'Evert, A. B., Dennison, M., Gardner, C. D., Garvey, W. T., Lau, K. H. K., MacLeod, J., Mitri, J., Pereira, R. F., Rawlings, K., Robinson, S., Saslow, L., Uelmen, S., Urbanski, P. B., & Yancy, W. S. (2019).',
+        title: 'Nutrition therapy for adults with diabetes or prediabetes: A consensus report.',
+        journal: 'Diabetes Care',
+        volumeIssuePages: '42(5), 731–754.',
+        url: 'https://doi.org/10.2337/dci19-0014',
+        plainText: 'Evert, A. B., Dennison, M., Gardner, C. D., Garvey, W. T., Lau, K. H. K., MacLeod, J., Mitri, J., Pereira, R. F., Rawlings, K., Robinson, S., Saslow, L., Uelmen, S., Urbanski, P. B., & Yancy, W. S. (2019). Nutrition therapy for adults with diabetes or prediabetes: A consensus report. Diabetes Care, 42(5), 731–754. https://doi.org/10.2337/dci19-0014'
+      },
+      {
+        id: 'ref-fitzgerald',
+        topic: 'Low-Purine Diet & Gout Management',
+        authorsYear: 'FitzGerald, J. D., Dalbeth, N., Mikuls, T., Brignardello-Petersen, R., Guyatt, G., Abeles, A. M., Gelber, A. C., Harrold, L. R., Khanna, D., King, C., Levy, G., Libbey, C., Mount, D., Pillinger, M. H., Rosenthal, A., Singh, J. A., Sims, J. E., Smith, B. J., Wenger, N. S., ... Poon, S. (2020).',
+        title: '2020 American College of Rheumatology guideline for the management of gout.',
+        journal: 'Arthritis & Rheumatology',
+        volumeIssuePages: '72(6), 879–895.',
+        url: 'https://doi.org/10.1002/art.41247',
+        plainText: 'FitzGerald, J. D., Dalbeth, N., Mikuls, T., Brignardello-Petersen, R., Guyatt, G., Abeles, A. M., Gelber, A. C., Harrold, L. R., Khanna, D., King, C., Levy, G., Libbey, C., Mount, D., Pillinger, M. H., Rosenthal, A., Singh, J. A., Sims, J. E., Smith, B. J., Wenger, N. S., ... Poon, S. (2020). 2020 American College of Rheumatology guideline for the management of gout. Arthritis & Rheumatology, 72(6), 879–895. https://doi.org/10.1002/art.41247'
+      },
+      {
+        id: 'ref-nguyen',
+        topic: 'Clear Liquid vs. Low-Residue Bowel Prep',
+        authorsYear: 'Nguyen, D. L., Jamal, M. M., Nguyen, E. T., Puli, S. R., & Bechtold, M. L. (2016).',
+        title: 'Low-residue versus clear liquid diet before colonoscopy: A meta-analysis of randomized, controlled trials.',
+        journal: 'Gastrointestinal Endoscopy',
+        volumeIssuePages: '83(3), 499–507.e1.',
+        url: 'https://doi.org/10.1016/j.gie.2015.09.045',
+        plainText: 'Nguyen, D. L., Jamal, M. M., Nguyen, E. T., Puli, S. R., & Bechtold, M. L. (2016). Low-residue versus clear liquid diet before colonoscopy: A meta-analysis of randomized, controlled trials. Gastrointestinal Endoscopy, 83(3), 499–507.e1. https://doi.org/10.1016/j.gie.2015.09.045'
+      },
+      {
+        id: 'ref-stevens',
+        topic: 'Renal Diet & Chronic Kidney Disease (KDIGO)',
+        authorsYear: 'Stevens, P. E., Ahmed, S. B., Carrero, J. J., Foster, B., Francis, A., Hall, R. K., Herrington, W. G., Hill, G., Inker, L. A., Kazancıoğlu, R., Lamb, E., Lin, P., Madero, M., McIntyre, N., Morrow, K., Roberts, G., Sabanayagam, D., Schaeffner, E., Shlipak, M., ... Yang, C.-W. (2024).',
+        title: 'KDIGO 2024 clinical practice guideline for the evaluation and management of chronic kidney disease.',
+        journal: 'Kidney International',
+        volumeIssuePages: '105(4S), S117–S314.',
+        url: 'https://doi.org/10.1016/j.kint.2023.10.018',
+        plainText: 'Stevens, P. E., Ahmed, S. B., Carrero, J. J., Foster, B., Francis, A., Hall, R. K., Herrington, W. G., Hill, G., Inker, L. A., Kazancıoğlu, R., Lamb, E., Lin, P., Madero, M., McIntyre, N., Morrow, K., Roberts, G., Sabanayagam, D., Schaeffner, E., Shlipak, M., ... Yang, C.-W. (2024). KDIGO 2024 clinical practice guideline for the evaluation and management of chronic kidney disease. Kidney International, 105(4S), S117–S314. https://doi.org/10.1016/j.kint.2023.10.018'
+      }
+    ];
+
+    // -------------------------------------------------------------------------
+    // 2. COMPREHENSIVE 9 THERAPEUTIC DIETS DATASET
+    //    Includes all 5 columns with explicit CONTENT + WHY + BECAUSE per column,
+    //    plus interactive SVG tray hotspots and tray audit quiz items.
+    // -------------------------------------------------------------------------
+    const THERAPEUTIC_DIETS = [
+      {
+        id: 'clear-liquid',
+        number: '01',
+        name: 'Clear Liquid Diet',
+        badge: 'GI Rest · Residue-Free Hydration',
+        categories: ['gi'],
+        accentColor: '#0E7490',
+        traySubtitle: 'Click any item on the clinical tray to inspect transparency, osmolarity & GI absorption specs',
+        columns: {
+          category: {
+            content: 'Therapeutic Transition & Bowel-Prep Liquid Diet (Short-term: 24–48 hours maximum).',
+            why: 'Categorized as an acute, non-residue fluid regimen rather than a maintenance nutritional therapy.',
+            because: 'It lacks essential proteins, fats, fat-soluble vitamins, and adequate calories (<600–800 kcal/day), so prolonged use beyond 48 hours precipitates catabolic muscle breakdown and malnutrition.'
+          },
+          indication: {
+            content: 'Pre-/post-operative GI surgery, colonoscopy bowel preparation, acute gastroenteritis, severe nausea/vomiting, or initial refeeding after prolonged NPO.',
+            why: 'The gastrointestinal tract exhibits temporary ileus, mucosal inflammation, or requires an unobstructed lumen.',
+            because: 'Post-anesthetic sympathetic tone slows peristalsis and injured intestinal villi lack brush-border enzymes, meaning complex solids would ferment, cause painful distension, or trigger emesis.'
+          },
+          allowed: {
+            content: 'Water, fat-free clear broth (bouillon), pulp-free apple/white grape/cranberry juice, plain gelatin, popsicles without fruit bits, black coffee/tea, clear electrolyte drinks.',
+            why: 'All items remain completely transparent and liquid at body temperature (37°C) with zero insoluble fiber or fat.',
+            because: 'Simple monosaccharides and electrolytes absorb passively in the proximal duodenum without triggering cholecystokinin (CCK) gallbladder contraction, pancreatic enzyme surges, or fecal residue.'
+          },
+          prohibited: {
+            content: 'Milk, cream, dairy/non-dairy milks, orange/pineapple juice with pulp, cream soups, solid foods, opaque smoothies, red/purple dyes before colonoscopy.',
+            why: 'Fats, casein proteins, and plant fibers require active enzymatic hydrolysis and leave indigestible particulate matter.',
+            because: 'Casein curdles in gastric acid into solid curds that stimulate peristalsis and form stool, while red/purple artificial dyes mimic mucosal blood or obscure lesions during endoscopic visualization.'
+          },
+          rationale: {
+            content: 'Maintains intravascular hydration, serum electrolytes, and minimal basal glucose while keeping the gastrointestinal tract at physiological rest.',
+            why: 'Prevents dehydration and ketosis without mechanically or chemically challenging a recovering bowel.',
+            because: 'Minimizing intraluminal bulk protects fresh surgical anastomoses from tension and prevents osmotic diarrhea across inflamed enteric mucosa.'
+          }
+        },
+        hotspots: [
+          {
+            id: 'cl-broth',
+            label: 'Clarified Fat-Free Broth',
+            tag: 'Sodium & Electrolyte Replenishment',
+            specs: '0g Fat · 0g Fiber · ~450mg Na⁺/cup',
+            note: 'Replaces gastric and diarrheal sodium/chloride losses without triggering cholecystokinin (CCK)-mediated gallbladder contraction or pancreatic lipase secretion.'
+          },
+          {
+            id: 'cl-gelatin',
+            label: 'Plain Translucent Gelatin',
+            tag: 'Body-Temp Phase Transition',
+            specs: 'Melts at 37°C · Simple Glucose',
+            note: 'Semi-solid at room temperature for psychological satiety, yet liquefies completely at core body temperature (37°C), leaving zero colonic residue.'
+          },
+          {
+            id: 'cl-juice',
+            label: 'Filtered Apple Juice',
+            tag: 'Proximal Duodenal Absorption',
+            specs: '100% Pulp-Free · Rapid Osmotic Uptake',
+            note: 'Provides immediate simple carbohydrates to blunt starvation ketosis without insoluble pectin or cellulose fibers reaching the ileum.'
+          },
+          {
+            id: 'cl-water',
+            label: 'Sterile Water & Electrolyte Ice',
+            tag: 'Intravascular Volume Support',
+            specs: 'Zero Osmolar Load · Minimal Gastric Emptying Time',
+            note: 'Clears the stomach within 15–20 minutes, maintaining renal perfusion and mucosal hydration safely after anesthesia.'
+          }
+        ],
+        trayCheck: [
+          { item: 'Clarified chicken bouillon', valid: true, reason: 'Passes: Transparent at 37°C, fat-skimmed, and supplies sodium without residue.' },
+          { item: 'Cream of mushroom soup', valid: false, reason: 'Fails: Opaque dairy fat and fungal solids stimulate CCK and leave fecal residue.' },
+          { item: 'Plain lemon gelatin cup', valid: true, reason: 'Passes: Melts completely to a clear fluid at body temperature with zero fiber.' },
+          { item: 'Fresh squeezed orange juice with pulp', valid: false, reason: 'Fails: Citrus pulp fibers resist small-bowel digestion and enter the colon.' }
+        ]
+      },
+      {
+        id: 'full-liquid',
+        number: '02',
+        name: 'Full Liquid Diet',
+        badge: 'Intermediate Texture · Pourable Nutrition',
+        categories: ['gi', 'texture'],
+        accentColor: '#2563EB',
+        traySubtitle: 'Click any vessel on the tray to examine caloric density, viscosity & non-masticatory delivery',
+        columns: {
+          category: {
+            content: 'Intermediate Pourable-Texture Diet (Bridges Clear Liquids and Soft/Regular Solids).',
+            why: 'Categorized by physical flowability at room or body temperature rather than optical transparency.',
+            because: 'Including opaque dairy, pureed emulsions, and thinned starches boosts caloric and protein density (1,200–1,800+ kcal/day) when patients cannot yet tolerate solid chewing.'
+          },
+          indication: {
+            content: 'Post-operative transition from clear liquids, wired jaws (mandibular fracture), oral/facial surgery, or benign esophageal strictures without aspiration risk.',
+            why: 'The patient has impaired mechanical mastication or narrowed upper-GI lumen diameter, yet possesses intact intestinal absorption and safe airway protection.',
+            because: 'Without mastication, solid food boluses cannot be sheared into <2 mm particles, risking mechanical impaction in strictured esophagi or trauma to oral suture lines.'
+          },
+          allowed: {
+            content: 'All clear liquids plus milk, plain/smooth yogurt, pudding, custard, ice cream, strained cream soups, thinned hot cereals (farina/cream of wheat), smooth vegetable juices.',
+            why: 'Foods are homogeneous, free of particulate chunks, and liquefy or pour smoothly without tongue-palate crushing.',
+            because: 'Emulsified milk proteins, lactose, and gelatinized starches pass effortlessly through narrow luminal passages and undergo enzymatic digestion in the small intestine.'
+          },
+          prohibited: {
+            content: 'All solid meats, raw or whole cooked vegetables/fruits, nuts, seeds, bread, crackers, chunky soups, ice cream with chocolate chips or fruit chunks.',
+            why: 'Solid particulates require molar grinding and form cohesive non-pourable boluses.',
+            because: 'Unchewed fragments can lodge proximal to an esophageal stricture, disrupt maxillomandibular fixation wires, or abrade healing oral mucosa.'
+          },
+          rationale: {
+            content: 'Delivers essential protein, calcium, and energy to support tissue healing while eliminating the mechanical work of chewing.',
+            why: 'Prevents negative nitrogen balance during recovery when solid mastication is anatomically impossible.',
+            because: 'Adequate amino acid and caloric availability accelerates collagen synthesis and surgical wound closure without stressing upper-GI structures.'
+          }
+        },
+        hotspots: [
+          {
+            id: 'fl-soup',
+            label: 'Strained Cream Soup',
+            tag: 'Emulsified Protein & Energy',
+            specs: '100% Strained · Zero Particulates',
+            note: 'Sieved through fine mesh so no vegetable skins or fibers remain; supplies warm savory calories and casein/whey protein.'
+          },
+          {
+            id: 'fl-yogurt',
+            label: 'Smooth Custard / Plain Yogurt',
+            tag: 'Calcium & High-BV Protein',
+            specs: 'Homogeneous Gel · No Fruit Pieces',
+            note: 'Provides 8–12g of complete protein per serving with zero chewing effort, supporting postoperative tissue repair.'
+          },
+          {
+            id: 'fl-farina',
+            label: 'Thinned Cream of Wheat',
+            tag: 'Gelatinized Refined Starch',
+            specs: 'Pourable Viscosity · Low Fiber',
+            note: 'Refined wheat endosperm cooked with milk to a pourable consistency delivers sustained complex carbohydrates safely.'
+          },
+          {
+            id: 'fl-shake',
+            label: 'Oral Nutritional Supplement',
+            tag: 'Micronutrient Fortification',
+            specs: '250–350 kcal · Balanced Macros',
+            note: 'Prevents iron, zinc, and B-vitamin deficits when full liquids are required for more than 3–5 days.'
+          }
+        ],
+        trayCheck: [
+          { item: 'Strained cream of tomato soup', valid: true, reason: 'Passes: Smooth, homogeneous liquid with zero seeds or skins.' },
+          { item: 'Vanilla ice cream with crushed walnuts', valid: false, reason: 'Fails: Nut fragments do not melt and pose an obstruction/trauma hazard.' },
+          { item: 'Thinned farina cereal with milk', valid: true, reason: 'Passes: Pourable, lump-free starch providing calories without chewing.' },
+          { item: 'Soft scrambled eggs', valid: false, reason: 'Fails: Solid protein curds belong on a Soft Diet, not a Full Liquid Diet.' }
+        ]
+      },
+      {
+        id: 'soft-diet',
+        number: '03',
+        name: 'Soft Diet (Mechanical / GI Soft)',
+        badge: 'Tender Texture · Low Masticatory Load',
+        categories: ['gi', 'texture'],
+        accentColor: '#2E5A44',
+        traySubtitle: 'Click any item on the plate to inspect fiber softening, gastric emptying & tissue gentleness',
+        columns: {
+          category: {
+            content: 'Texture-Tenderized & Mucosally Gentle Maintenance Diet (Long-term nutritionally complete).',
+            why: 'Modifies physical food tenderness and limits harsh chemical/gastric irritants while preserving full macro- and micronutrient balance.',
+            because: 'Thermal cooking breaks down plant pectin and meat collagen, allowing complete nutrition without exhausting weakened masticatory muscles or irritating inflamed gastric mucosa.'
+          },
+          indication: {
+            content: 'Edentulous patients, ill-fitting dentures, generalized weakness/debilitation, mild gastritis, peptic ulcer recovery, or post-operative convalescence.',
+            why: 'Reduced bite force (<50% normal occlusal pressure) or sensitized gastroduodenal mucosa cannot tolerate tough fibers or hypertonic irritants.',
+            because: 'Coarse food particles require prolonged gastric antral grinding (trituration) and stimulate excess hydrochloric acid (HCl) secretion, worsening epigastric pain.'
+          },
+          allowed: {
+            content: 'Tender ground/shredded poultry or fish, moist meatloaf, poached/scrambled eggs, mashed potatoes, well-cooked pasta/rice, peeled cooked carrots/zucchini, ripe bananas, canned peaches.',
+            why: 'Foods are moist, low in tough connective tissue, and easily mashed with the tongue or fork.',
+            because: 'Pre-softened starches and denatured proteins empty rapidly from the stomach and require minimal salivary/jaw shearing force.'
+          },
+          prohibited: {
+            content: 'Raw crunchy vegetables (celery, carrots), tough fibrous steaks, nuts, seeds, popcorn, crusty breads, deep-fried greasy foods, chili/heavy spices.',
+            why: 'Insoluble cellulose, dense elastin, and high lipid loads resist mechanical breakdown and delay gastric emptying.',
+            because: 'Sharp husks (popcorn/nuts) physically abrade inflamed mucosa, while excess triglycerides trigger enterogastrone-mediated gastric stasis and reflux.'
+          },
+          rationale: {
+            content: 'Minimizes mechanical chewing fatigue and chemical/thermal gastric irritation while sustaining full long-term nutritional adequacy.',
+            why: 'Prevents unintended weight loss in debilitated or edentulous patients who otherwise abandon meals due to chewing exhaustion.',
+            because: 'Easy oral processing increases total meal intake volume, preserving lean body mass and immunocompetence.'
+          }
+        },
+        hotspots: [
+          {
+            id: 'sd-fish',
+            label: 'Poached Flaky White Fish',
+            tag: 'Low-Collagen Tender Protein',
+            specs: '18g Protein · Breaks with Fork Pressure',
+            note: 'Short muscle fibers without tough connective tissue flake effortlessly, requiring minimal molar grinding.'
+          },
+          {
+            id: 'sd-potato',
+            label: 'Whipped Mashed Potatoes',
+            tag: 'Low-Residue Gentle Starch',
+            specs: 'Peeled · Smooth Digestible Amylopectin',
+            note: 'Removing skins eliminates tough insoluble cellulose; moist starch empties smoothly from the stomach.'
+          },
+          {
+            id: 'sd-carrots',
+            label: 'Steamed Peeled Carrots',
+            tag: 'Heat-Hydrolyzed Pectin',
+            specs: 'Well-Cooked · Non-Abrasive Fiber',
+            note: 'Moist heat solubilizes middle-lamella pectin, softening plant cell walls so they do not abrade gastric mucosa.'
+          },
+          {
+            id: 'sd-banana',
+            label: 'Ripe Banana / Canned Peaches',
+            tag: 'Soft Soluble-Fiber Fruit',
+            specs: 'Peeled · Zero Seeds or Tough Skins',
+            note: 'Provides potassium and vitamins in a naturally soft matrix without acidic citrus burn or tough peels.'
+          }
+        ],
+        trayCheck: [
+          { item: 'Moist poached salmon & mashed potatoes', valid: true, reason: 'Passes: Tender, flaky protein and smooth peeled starch need minimal chewing.' },
+          { item: 'Buttered popcorn & raw celery sticks', valid: false, reason: 'Fails: Sharp hulls and rigid cellulose abrade mucosa and require heavy chewing.' },
+          { item: 'Ripe banana slices & poached egg', valid: true, reason: 'Passes: Soft, non-irritating textures easily digested in mild gastritis.' },
+          { item: 'Deep-fried spicy chicken wings', valid: false, reason: 'Fails: Tough cartilage, high fat delays gastric emptying, and capsaicin irritates mucosa.' }
+        ]
+      },
+      {
+        id: 'dysphagia',
+        number: '04',
+        name: 'Dysphagia Diet (IDDSI Framework)',
+        badge: 'Aspiration Prevention · Viscosity & Cohesiveness',
+        categories: ['texture'],
+        accentColor: '#B44C32',
+        traySubtitle: 'Click elements on the IDDSI tray to inspect bolus cohesiveness, syringe flow & airway protection',
+        columns: {
+          category: {
+            content: 'International Dysphagia Diet Standardisation Initiative (IDDSI Levels 0–7) Texture-Modified & Thickened-Liquid Regimen.',
+            why: 'Standardizes food particle size, cohesiveness, and liquid flow rate (mL/10 sec syringe test) across clinical settings.',
+            because: 'Matching exact rheological properties to a patient’s specific pharyngeal transit speed prevents silent or overt airway penetration.'
+          },
+          indication: {
+            content: 'Cerebrovascular accident (stroke), Parkinson’s disease, ALS, dementia, traumatic brain injury, or head/neck radiation causing oropharyngeal dysphagia.',
+            why: 'Neurological or structural deficits delay the pharyngeal swallow reflex, weaken tongue propulsion, or impair epiglottic/vocal fold closure.',
+            because: 'When laryngeal elevation lags behind bolus arrival at the pyriform sinuses, fast-moving or fragmented foods spill directly into an open trachea.'
+          },
+          allowed: {
+            content: 'IDDSI Level 4 Pureed meats/vegetables (holds shape on spoon, no lumps), Level 5 Minced & Moist (≤4 mm particles), and SLP-prescribed thickened liquids (Level 2 Mildly Thick / Level 3 Moderately Thick).',
+            why: 'Cohesive, homogeneous boluses deform smoothly and move slowly as a single unit without separating into liquid and solid phases.',
+            because: 'Increased viscosity slows pharyngeal transit time by hundreds of milliseconds, giving sluggish vocal cords and the epiglottis sufficient time to seal the airway.'
+          },
+          prohibited: {
+            content: 'Thin liquids (plain water, regular coffee/juice) unless cleared, dual-consistency foods (cereal with milk, chunky soup), dry crumbly foods (crackers, dry rice), sticky peanut butter, fibrous skins.',
+            why: 'Thin fluids flow uncontrollably fast, dual textures split inside the mouth, and dry crumbs scatter across pharyngeal walls.',
+            because: 'Liquid separates from solids in dual-consistency soups and enters the larynx before swallow initiation, causing aspiration pneumonia.'
+          },
+          rationale: {
+            content: 'Prevents pulmonary aspiration, choking, and aspiration pneumonia while maintaining safe oral hydration and nutrition.',
+            why: 'Aspiration pneumonia is a leading cause of mortality in neurogenic dysphagia patients.',
+            because: 'Colonized oropharyngeal bacteria carried into alveoli by aspirated thin fluids trigger severe chemical and bacterial pneumonitis.'
+          }
+        },
+        hotspots: [
+          {
+            id: 'dy-puree',
+            label: 'IDDSI Level 4 Pureed Entrée',
+            tag: 'Cohesive Homogeneous Bolus',
+            specs: 'No Lumps · Passes Fork Drip & Spoon Tilt Test',
+            note: 'Holds its shape on a spoon yet slides off cleanly without stickiness, preventing pharyngeal residue pooling.'
+          },
+          {
+            id: 'dy-thick',
+            label: 'Thickened Liquid (IDDSI Level 2/3)',
+            tag: 'Controlled Pharyngeal Transit',
+            specs: '10 mL Syringe Flow: 4–8 mL (Level 2) / >8 mL (Level 3)',
+            note: 'Xanthan-gum or starch thickener increases shear viscosity so fluid moves slowly enough for delayed epiglottic closure.'
+          },
+          {
+            id: 'dy-mousse',
+            label: 'Smooth Fruit Mousse / Pudding',
+            tag: 'Single-Phase Moisture',
+            specs: 'Zero Syneresis (No Water Separation)',
+            note: 'Maintains uniform moisture without releasing free thin liquid ("weeping") that could trigger pre-swallow aspiration.'
+          },
+          {
+            id: 'dy-iddsi',
+            label: 'IDDSI Fork / Syringe Verification',
+            tag: 'Bedside Safety Standard',
+            specs: 'Particle Size ≤4 mm (Level 5) · Puree (Level 4)',
+            note: 'Clinicians verify texture at bedside because even minor water separation or lumps >4 mm can occlude the airway.'
+          }
+        ],
+        trayCheck: [
+          { item: 'IDDSI Level 4 pureed chicken & nectar-thick juice', valid: true, reason: 'Passes: Single-phase cohesive puree and slowed fluid viscosity protect the airway.' },
+          { item: 'Chicken noodle soup with thin broth', valid: false, reason: 'Fails: Dual-consistency hazard—thin broth spills into the trachea while chewing noodles.' },
+          { item: 'Dry saltine crackers & plain water', valid: false, reason: 'Fails: Crumbs scatter into pharyngeal recesses and unthickened water aspirates rapidly.' },
+          { item: 'Smooth thickened yogurt (no fruit chunks)', valid: true, reason: 'Passes: Uniform, moist bolus requires minimal tongue manipulation and stays intact.' }
+        ]
+      },
+      {
+        id: 'renal',
+        number: '05',
+        name: 'Renal Diet (CKD / ESRD)',
+        badge: 'Electrolyte, Phosphorus & Uremic Control',
+        categories: ['metabolic'],
+        accentColor: '#1E3A5F',
+        traySubtitle: 'Click each component on the renal plate to inspect K⁺, PO₄³⁻, Na⁺ & protein clearance limits',
+        columns: {
+          category: {
+            content: 'Electrolyte-, Mineral-, Fluid-, and Protein-Controlled Nephrology Diet (Tailored to CKD Stage 3–5 vs. Dialysis).',
+            why: 'Calibrates dietary solute load to match residual glomerular filtration rate (GFR) and tubular excretion capacity.',
+            because: 'When nephron mass falls below ~25–30%, dietary potassium, phosphorus, sodium, and nitrogenous wastes accumulate to toxic serum concentrations.'
+          },
+          indication: {
+            content: 'Acute kidney injury (AKI), chronic kidney disease (CKD Stages 3–5), and end-stage renal disease (ESRD) on hemodialysis or peritoneal dialysis.',
+            why: 'Damaged glomeruli and renal tubules lose the ability to excrete potassium, phosphate, hydrogen ions, urea, and excess sodium/water.',
+            because: 'Impaired aldosterone-mediated distal potassium secretion causes hyperkalemia, while reduced phosphate clearance triggers secondary hyperparathyroidism.'
+          },
+          allowed: {
+            content: 'Controlled high-biological-value (HBV) proteins (egg whites, skinless chicken, fish), low-potassium produce (apples, berries, grapes, cabbage, cauliflower, green beans), white rice/bread, unsalted herbs.',
+            why: 'HBV proteins supply essential amino acids with minimal non-essential nitrogen waste, while select produce keeps potassium (<200 mg/serving) and phosphorus low.',
+            because: 'Egg whites provide pure albumin without the heavy phosphorus load of egg yolks, and refined grains lack the bran-bound phytate phosphorus of whole grains.'
+          },
+          prohibited: {
+            content: 'Cured/processed meats, canned soups, bananas, oranges, potatoes, tomatoes, dairy/cheese, dark colas, nuts, whole-grain bran, salt substitutes containing potassium chloride (KCl).',
+            why: 'Processed foods contain inorganic phosphate/sodium additives (90–100% absorbed), and high-K⁺ produce overwhelms renal excretion.',
+            because: 'Hyperkalemia depolarizes cardiac myocyte resting membrane potentials causing fatal ventricular fibrillation, while hyperphosphatemia binds serum calcium and causes vascular calcification.'
+          },
+          rationale: {
+            content: 'Prevents uremic toxicity, life-threatening hyperkalemic arrhythmias, pulmonary edema/hypertension, and CKD-mineral bone disorder (renal osteodystrophy).',
+            why: 'Reduces metabolic workload on surviving nephrons while preserving lean nutritional status.',
+            because: 'Controlling intraglomerular pressure and solute retention slows CKD progression and keeps interdialytic weight gain safe.'
+          }
+        },
+        hotspots: [
+          {
+            id: 'rn-eggwhite',
+            label: 'Egg White & Herb Omelet',
+            tag: 'High-BV Protein · Ultra-Low Phosphorus',
+            specs: '7g Protein · <10mg Phosphorus · 55mg K⁺',
+            note: 'Delivers all essential amino acids with minimal urea generation and avoids the ~95mg phosphorus found in egg yolks.'
+          },
+          {
+            id: 'rn-rice',
+            label: 'Steamed White Rice',
+            tag: 'Low-Potassium, Low-Phosphate Energy',
+            specs: '35mg K⁺ · 30mg Phosphorus · Zero Na⁺',
+            note: 'Preferred over brown rice in advanced CKD because milling removes the phosphorus- and potassium-dense bran layer.'
+          },
+          {
+            id: 'rn-cabbage',
+            label: 'Garlic-Sautéed Green Cabbage',
+            tag: 'Low-Potassium Crucifer',
+            specs: '<120mg K⁺/serving · Rich in Antioxidants',
+            note: 'Replaces high-potassium potatoes and tomatoes (which exceed 400–600mg K⁺) while providing fiber and flavor.'
+          },
+          {
+            id: 'rn-berries',
+            label: 'Fresh Red Grapes & Berries',
+            tag: 'Safe Low-K⁺ Fruit Selection',
+            specs: '~85mg K⁺/serving · Fluid-Measured',
+            note: 'Provides polyphenols and vitamin C safely compared to bananas (422mg K⁺) or orange juice (496mg K⁺).'
+          }
+        ],
+        trayCheck: [
+          { item: 'Egg white omelet, white toast & red grapes', valid: true, reason: 'Passes: High-biological-value protein with minimal potassium, phosphorus, and sodium.' },
+          { item: 'Baked potato with cheddar cheese & orange juice', valid: false, reason: 'Fails: Extreme potassium (~900mg potato + 496mg OJ) and dairy phosphorus overload.' },
+          { item: 'Seasoning food with KCl salt substitute', valid: false, reason: 'Fails: Potassium chloride substitutes deliver massive hidden K⁺, risking cardiac arrhythmia.' },
+          { item: 'Skinless herb chicken, white rice & cabbage', valid: true, reason: 'Passes: Controlled HBV protein paired with low-mineral starch and vegetable.' }
+        ]
+      },
+      {
+        id: 'low-purine',
+        number: '06',
+        name: 'Low-Purine Diet (Gout & Urate Control)',
+        badge: 'Serum Uric Acid < 6.8 mg/dL · Hydration',
+        categories: ['metabolic'],
+        accentColor: '#7C3AED',
+        traySubtitle: 'Click elements on the urate-control plate to inspect purine load, renal excretion & hydration',
+        columns: {
+          category: {
+            content: 'Purine-Restricted, Uricosuric-Supportive Metabolic Diet (Adjunct to urate-lowering pharmacotherapy).',
+            why: 'Limits exogenous dietary purine precursors (adenine and guanine) while enhancing renal tubular uric acid clearance.',
+            because: 'Humans lack the enzyme uricase, so all excess purines degrade irreversibly into poorly soluble uric acid.'
+          },
+          indication: {
+            content: 'Acute gouty arthritis flares, chronic tophaceous gout, hyperuricemia (>6.8 mg/dL), and recurrent uric acid nephrolithiasis (kidney stones).',
+            why: 'Overproduction or renal underexcretion of uric acid causes extracellular fluid supersaturation.',
+            because: 'Above 6.8 mg/dL (especially in cooler peripheral joints like the first metatarsophalangeal joint), needle-shaped monosodium urate (MSU) crystals precipitate and activate NLRP3 inflammasome neutrophil attacks.'
+          },
+          allowed: {
+            content: 'Low-fat dairy (skim milk, low-fat yogurt), eggs, whole/refined grains, all vegetables (including moderate purine-rich vegetables like spinach/asparagus), cherries, vitamin C-rich fruits, 2.5–3 L water/day.',
+            why: 'Low-fat dairy proteins (casein/lactalbumin) and vitamin C exert a uricosuric effect, while plant purines do not elevate gout flare risk.',
+            because: 'Dairy peptides increase fractional renal excretion of uric acid, cherries lower inflammatory cytokines, and high water intake keeps urinary uric acid dilute.'
+          },
+          prohibited: {
+            content: 'Organ meats (liver, kidneys, sweetbreads), anchovies, sardines, mackerel, mussels/scallops, excessive red/game meat, alcohol (especially beer), high-fructose corn syrup (HFCS) sodas.',
+            why: 'Organ meats and oily small fish contain extreme concentrations of cellular DNA/RNA purines, while alcohol and fructose impair renal urate clearance.',
+            because: 'Ethanol metabolism generates lactic acid that competes with urate at renal URAT1 transporters (blocking excretion), and fructose rapidly depletes hepatic ATP, accelerating purine breakdown into uric acid.'
+          },
+          rationale: {
+            content: 'Maintains serum uric acid below the crystallization threshold (<6.0–6.8 mg/dL) to dissolve existing tophi and prevent recurrent gout flares and urate kidney stones.',
+            why: 'Combines reduced urate synthesis with enhanced renal urate solubility.',
+            because: 'Alkaline, high-volume urine prevents uric acid precipitation in renal collecting ducts, protecting against obstructive uropathy.'
+          }
+        },
+        hotspots: [
+          {
+            id: 'lp-dairy',
+            label: 'Low-Fat Greek Yogurt',
+            tag: 'Uricosuric Dairy Proteins',
+            specs: 'Zero Purines · Casein & Lactalbumin',
+            note: 'Clinical studies show low-fat dairy stimulates renal uric acid excretion and lowers gout incidence by up to 40%.'
+          },
+          {
+            id: 'lp-cherries',
+            label: 'Tart Cherries & Citrus',
+            tag: 'Anti-Inflammatory & Uricosuric',
+            specs: 'Anthocyanins + 500mg Vitamin C Equivalent',
+            note: 'Anthocyanins inhibit xanthine oxidase and IL-1β inflammation while vitamin C enhances glomerular urate filtration.'
+          },
+          {
+            id: 'lp-eggs',
+            label: 'Poached Eggs & Whole Grains',
+            tag: 'Purine-Free Complete Protein',
+            specs: '<5mg Purines · Sustained Energy',
+            note: 'Eggs are single-cell structures containing virtually zero nucleic acid purines compared to dense organ meats.'
+          },
+          {
+            id: 'lp-water',
+            label: '2.5–3.0 L Pure Water',
+            tag: 'Renal Crystal Dilution',
+            specs: 'Target Urine Output >2 L/day',
+            note: 'Prevents supersaturation of uric acid in acidic distal renal tubules, halting urate stone nucleation.'
+          }
+        ],
+        trayCheck: [
+          { item: 'Low-fat yogurt, fresh cherries & whole-grain toast', valid: true, reason: 'Passes: Purine-free protein plus uricosuric dairy and anthocyanins.' },
+          { item: 'Grilled beef liver, sardines & craft beer', valid: false, reason: 'Fails: Extreme purine load plus brewer’s yeast and lactate-induced urate retention.' },
+          { item: 'High-fructose corn syrup cola', valid: false, reason: 'Fails: Fructose phosphorylation consumes hepatic ATP, surging endogenous uric acid.' },
+          { item: 'Vegetable omelet with spinach & 2 glasses water', valid: true, reason: 'Passes: ACR guidelines confirm purine-rich vegetables do not trigger gout flares.' }
+        ]
+      },
+      {
+        id: 'low-residue',
+        number: '07',
+        name: 'Low-Residue Diet',
+        badge: 'Minimal Fecal Bulk · Bowel Protection',
+        categories: ['gi'],
+        accentColor: '#9A6700',
+        traySubtitle: 'Click items on the low-residue tray to inspect small-bowel absorption & colonic stool reduction',
+        columns: {
+          category: {
+            content: 'Fiber-Restricted (<10–15 g/day) & Stool-Volume-Minimizing Gastrointestinal Diet.',
+            why: 'Restricts both insoluble dietary fiber and non-fiber foods (such as excess milk) that increase fecal mass.',
+            because: 'Whereas "low-fiber" only limits plant cell walls, "low-residue" eliminates all indigestible substances that reach the colon as stool.'
+          },
+          indication: {
+            content: 'Acute inflammatory bowel disease flares (Crohn’s disease, ulcerative colitis), acute diverticulitis, partial bowel obstruction/strictures, radiation enteritis, or pre-colonoscopy prep.',
+            why: 'Ulcerated, edematous, or stenotic intestinal segments have narrowed lumens and fragile mucosal walls.',
+            because: 'Bulky, abrasive stool passing through inflamed or strictured bowel triggers painful spasms, mucosal bleeding, mechanical obstruction, or perforation.'
+          },
+          allowed: {
+            content: 'Refined white bread, white rice, regular pasta, tender lean meat/fish, eggs, smooth peanut butter, well-cooked seedless/peeled vegetables (carrots, green beans), ripe bananas, limited milk (≤2 cups/day).',
+            why: 'Foods consist of refined starches and tender proteins digested almost completely in the duodenum and jejunum.',
+            because: '90–95% of nutrients are absorbed prior to the ileocecal valve, leaving minimal chyme to enter the inflamed colon.'
+          },
+          prohibited: {
+            content: 'Whole-grain breads/brown rice, raw fruits and vegetables, nuts, seeds, popcorn, beans/lentils, dried fruits, prune juice, excessive dairy (>2 cups/day).',
+            why: 'Insoluble cellulose/lignin resists human digestive enzymes, and excess lactose/milk proteins increase colonic residue and gas.',
+            because: 'Undigested seeds and hulls trap inside inflamed diverticula or strictures, while colonic bacterial fermentation generates painful gas distension.'
+          },
+          rationale: {
+            content: 'Reduces stool frequency, fecal volume, and colonic propulsive contractions so inflamed intestinal mucosa can rest and heal.',
+            why: 'Protects strictured or ulcerated bowel segments from mechanical shear stress.',
+            because: 'Lower intraluminal pressure reduces abdominal cramping, diarrhea frequency, and risk of acute bowel obstruction.'
+          }
+        },
+        hotspots: [
+          {
+            id: 'lr-pasta',
+            label: 'Refined White Pasta & Olive Oil',
+            tag: '95% Small-Bowel Absorption',
+            specs: '<1g Fiber · Completely Digested in Jejunum',
+            note: 'Milled endosperm starch hydrolyzes rapidly via pancreatic amylase, leaving virtually no residue entering the cecum.'
+          },
+          {
+            id: 'lr-chicken',
+            label: 'Tender Skinless Chicken Breast',
+            tag: 'Zero-Residue Lean Protein',
+            specs: '0g Fiber · Easily Cleaved Peptides',
+            note: 'Provides 26g protein for mucosal healing without fibrous connective tissue or insoluble plant cell walls.'
+          },
+          {
+            id: 'lr-zucchini',
+            label: 'Peeled, Seeded Cooked Zucchini',
+            tag: 'Safe Low-Fiber Produce',
+            specs: '<1.5g Soluble Fiber · Skins & Seeds Removed',
+            note: 'Removing the tough outer peel and seeds prevents insoluble particulate irritation of ulcerated colonic mucosa.'
+          },
+          {
+            id: 'lr-crackers',
+            label: 'Refined Saltines & Smooth PB',
+            tag: 'Caloric Density Without Bulk',
+            specs: 'Smooth Emulsion · No Nut Fragments',
+            note: 'Delivers concentrated calories and fat to prevent weight loss during IBD flares without particulate nut pieces.'
+          }
+        ],
+        trayCheck: [
+          { item: 'White rice, poached chicken & peeled cooked carrots', valid: true, reason: 'Passes: Nearly 100% absorbed in the small intestine, minimizing colonic stool bulk.' },
+          { item: 'Whole-wheat toast with crunchy peanut butter & blackberries', valid: false, reason: 'Fails: Wheat bran, nut pieces, and berry seeds leave heavy abrasive colonic residue.' },
+          { item: 'Three large glasses of whole milk & prune juice', valid: false, reason: 'Fails: Excess milk increases fecal residue and prune juice contains osmotic sorbitol/fiber.' },
+          { item: 'Refined pasta with tender turkey meatballs', valid: true, reason: 'Passes: Low-fiber starch and ground tender protein keep stool volume minimal.' }
+        ]
+      },
+      {
+        id: 'high-fiber',
+        number: '08',
+        name: 'High-Fiber Diet (25–38 g/day + Hydration)',
+        badge: 'Peristalsis · SCFA & Bile Acid Modulation',
+        categories: ['gi', 'metabolic'],
+        accentColor: '#15803D',
+        traySubtitle: 'Click elements on the high-fiber bowl to inspect soluble vs. insoluble fiber & hydration synergy',
+        columns: {
+          category: {
+            content: 'Fiber-Enriched Therapeutic Diet (25 g/day for women, 38 g/day for men, paired with ≥2–2.5 L fluids/day).',
+            why: 'Combines water-holding insoluble fibers (cellulose, hemicellulose) with viscous fermentable soluble fibers (beta-glucan, pectin, psyllium).',
+            because: 'Each fiber fraction exerts distinct mechanical and metabolic actions along the gastrointestinal tract.'
+          },
+          indication: {
+            content: 'Chronic functional constipation, asymptomatic diverticulosis (prevention of diverticulitis), hemorrhoids, IBS-C, hyperlipidemia, and metabolic syndrome.',
+            why: 'Low-fiber Western diets produce small, dense stools that require high colonic segmentation pressure to propel.',
+            because: 'Excessive intraluminal pressure forces colonic mucosa to herniate through weak muscularis points (diverticula) and engorges hemorrhoidal venous cushions.'
+          },
+          allowed: {
+            content: 'Oats, barley, wheat bran, 100% whole-grain breads, legumes (lentils, black beans, chickpeas), fresh fruits and vegetables with edible skins, chia/flax seeds, nuts, plus 8–10 cups water.',
+            why: 'Intact plant cell walls provide both non-fermentable bulking matrix and prebiotic fermentable substrates.',
+            because: 'Insoluble fiber binds water to form large, soft stools (Bristol Type 3–4), while soluble fiber forms viscous gels that trap cholesterol-rich bile acids and ferment into short-chain fatty acids (butyrate).'
+          },
+          prohibited: {
+            content: 'Refined white flour products, white rice, pastries, ultra-processed low-fiber snacks, excessive cheese/red meat without fiber or fluid, abrupt fiber megadoses without water.',
+            why: 'Refined grains lack bran/germ, and adding dry fiber without adequate fluid creates a dehydrated, cement-like mass.',
+            because: 'Without free water to hydrate hydrophilic fiber networks, stool hardens and risks causing mechanical fecal impaction or severe gas bloating.'
+          },
+          rationale: {
+            content: 'Accelerates colonic transit time, lowers intraluminal bowel pressure, reduces serum LDL cholesterol, and nourishes colonocytes.',
+            why: 'Transforms stool rheology while modulating enterohepatic bile circulation and gut microbiome health.',
+            because: 'Larger stool diameter triggers stretch-mediated peristalsis with minimal pressure, while hepatic conversion of cholesterol to replace excreted bile acids lowers plasma LDL.'
+          }
+        },
+        hotspots: [
+          {
+            id: 'hf-oats',
+            label: 'Steel-Cut Oats & Chia Seeds',
+            tag: 'Soluble Beta-Glucan Gel',
+            specs: '8g Fiber · Binds Enterohepatic Bile Acids',
+            note: 'Forms a viscous hydrogel that traps bile acids for fecal excretion, forcing the liver to clear LDL cholesterol from blood.'
+          },
+          {
+            id: 'hf-beans',
+            label: 'Black Beans & Lentils',
+            tag: 'Prebiotic Resistant Starch + Fiber',
+            specs: '15g Fiber/cup · Butyrate Fermentation',
+            note: 'Colonic microbiota ferment bean oligosaccharides into butyrate, the primary fuel source for healthy colonocytes.'
+          },
+          {
+            id: 'hf-apple',
+            label: 'Unpeeled Apple & Berries',
+            tag: 'Insoluble Skin + Soluble Pectin',
+            specs: '6g Fiber · Intact Plant Cell Walls',
+            note: 'Keeping the skin intact provides insoluble cellulose bulk that stimulates colonic mechanoreceptors.'
+          },
+          {
+            id: 'hf-water',
+            label: 'Mandatory 2.5 L Hydration',
+            tag: 'Hydrophilic Swelling Catalyst',
+            specs: 'Essential Co-Factor · Prevents Impaction',
+            note: 'Fiber acts like a dry sponge; water is mandatory so the sponge swells into a soft gel rather than a hard obstruction.'
+          }
+        ],
+        trayCheck: [
+          { item: 'Lentil stew, whole-grain bread, unpeeled apple & water', valid: true, reason: 'Passes: Delivers ~18g mixed soluble/insoluble fiber paired with essential hydration.' },
+          { item: '30g dry bran supplement taken with 2 sips of water', valid: false, reason: 'Fails: Rapid dry fiber load without fluids risks severe bloating and fecal impaction.' },
+          { item: 'White bagel with cream cheese & soda', valid: false, reason: 'Fails: Stripped of bran and germ (<1g fiber), worsening sluggish colonic transit.' },
+          { item: 'Oatmeal topped with raspberries, flaxseed & tea', valid: true, reason: 'Passes: Rich in beta-glucan and insoluble seed hulls with adequate liquid.' }
+        ]
+      },
+      {
+        id: 'carb-controlled',
+        number: '09',
+        name: 'Carbohydrate-Controlled Diet',
+        badge: 'Glycemic Stability · Consistent Carb Counting',
+        categories: ['metabolic'],
+        accentColor: '#0F4C5C',
+        traySubtitle: 'Click quadrants on the Diabetes Plate to inspect glycemic index, fiber pairing & insulin matching',
+        columns: {
+          category: {
+            content: 'Glycemic-Regulated, Consistent-Carbohydrate Nutrition Therapy (Typically 45–60 g carb/meal or individualized per insulin-to-carb ratio).',
+            why: 'Focuses on carbohydrate quality (low glycemic load, high fiber) and consistent mealtime distribution rather than absolute carbohydrate elimination.',
+            because: 'Matching predictable glucose absorption curves to exogenous insulin peaks or residual beta-cell secretion prevents dangerous glycemic swings.'
+          },
+          indication: {
+            content: 'Type 1 diabetes mellitus (T1DM), Type 2 diabetes mellitus (T2DM), gestational diabetes mellitus (GDM), prediabetes, and reactive hypoglycemia.',
+            why: 'Autoimmune beta-cell destruction (T1DM) or peripheral insulin resistance with progressive beta-cell dysfunction (T2DM) impairs GLUT4-mediated cellular glucose uptake.',
+            because: 'Unregulated influx of rapidly absorbed glucose exceeds insulin disposal capacity, causing severe postprandial hyperglycemia, glycosuria, and oxidative endothelial injury.'
+          },
+          allowed: {
+            content: 'Non-starchy vegetables (50% of plate: broccoli, spinach, peppers), complex high-fiber carbs (25% of plate: quinoa, brown rice, legumes, measured berries), lean proteins (25% of plate), unsaturated fats (olive oil, avocado).',
+            why: 'Viscous fiber, protein, and healthy fats slow gastric emptying and enzymatic starch hydrolysis.',
+            because: 'Gradual glucose release into the portal vein flattens postprandial blood glucose excursions and lowers HbA1c without provoking rebound hypoglycemia.'
+          },
+          prohibited: {
+            content: 'Sugar-sweetened beverages (regular soda, sweet tea, energy drinks), candy, frosted pastries, syrups, large unmeasured portions of white bread/white rice/fries, fruit juices.',
+            why: 'Free disaccharides (sucrose) and high-glycemic-index starches lack intact fiber matrices and hydrolyze within minutes.',
+            because: 'Liquid sugars spike arterial glucose within 15–20 minutes—faster than subcutaneous rapid-acting insulin peaks—causing acute hyperglycemia and hyperinsulinemic crashes.'
+          },
+          rationale: {
+            content: 'Maintains euglycemia (time-in-range 70–180 mg/dL), prevents acute diabetic ketoacidosis (DKA) or hypoglycemia, and halts microvascular/macrovascular complications.',
+            why: 'Prevents non-enzymatic glycation of hemoglobin and vascular basement membranes.',
+            because: 'Lowering chronic hyperglycemia reduces advanced glycation end-products (AGEs), protecting retinal capillaries, renal glomeruli, and peripheral nerves.'
+          }
+        },
+        hotspots: [
+          {
+            id: 'cc-veg',
+            label: '50% Non-Starchy Vegetables',
+            tag: 'Low-Carb High-Volume Base',
+            specs: '~5g Net Carb · High Fiber & Micronutrients',
+            note: 'Broccoli, asparagus, and leafy greens fill half the plate with minimal glycemic impact while slowing gastric emptying.'
+          },
+          {
+            id: 'cc-protein',
+            label: '25% Lean Grilled Protein',
+            tag: 'Incretin & Satiety Stabilization',
+            specs: '0g Carb · 28g Lean Protein',
+            note: 'Co-ingesting protein stimulates GLP-1 release and blunts the glycemic peak of accompanying carbohydrates.'
+          },
+          {
+            id: 'cc-carb',
+            label: '25% Measured Complex Starch',
+            tag: 'Consistent Carb Count (15–30g)',
+            specs: 'Quinoa / Lentils · Low Glycemic Index',
+            note: 'Intact whole grains and legumes digest slowly via amylase, matching subcutaneous insulin absorption curves.'
+          },
+          {
+            id: 'cc-fat',
+            label: 'Avocado & Olive Oil Dressing',
+            tag: 'Monounsaturated Cardioprotection',
+            specs: '0g Carb · Improves Insulin Sensitivity',
+            note: 'Replaces saturated fats to lower cardiovascular risk while further moderating postprandial glucose rise.'
+          }
+        ],
+        trayCheck: [
+          { item: '½ plate roasted broccoli, ¼ grilled salmon, ¼ measured quinoa', valid: true, reason: 'Passes: Diabetes Plate method keeps carb count ~30g with high fiber and lean protein.' },
+          { item: '16 oz sweetened iced tea & large white-bread sub', valid: false, reason: 'Fails: >110g fast-acting liquid sugar and refined starch trigger severe hyperglycemia.' },
+          { item: 'Skipping lunch completely after taking pre-meal rapid insulin', valid: false, reason: 'Fails: Unopposed exogenous insulin without consistent carb intake causes acute hypoglycemia.' },
+          { item: 'Measured ½ cup blueberries with almonds & cottage cheese', valid: true, reason: 'Passes: Controlled 15g fruit carb paired with fat and protein prevents glucose spikes.' }
+        ]
+      }
+    ];
+
+    // -------------------------------------------------------------------------
+    // 3. CUSTOM INTERACTIVE SVG ILLUSTRATIONS PER DIET
+    //    Bespoke clinical illustrations with clickable/hoverable tray hotspots.
+    // -------------------------------------------------------------------------
+    function renderDietSVG(diet, activeSpotId) {
+      const isAct = (id) => (activeSpotId === id ? 'active-spot' : '');
+      const ring = (cx, cy, id) =>
+        activeSpotId === id
+          ? `<circle cx="${cx}" cy="${cy}" r="14" fill="none" stroke="#18181B" stroke-width="2" stroke-dasharray="3 2"/>`
+          : `<circle cx="${cx}" cy="${cy}" r="9" fill="#FFFFFF" fill-opacity="0.85" stroke="#18181B" stroke-width="1.5" class="hotspot-ring"/>
+             <circle cx="${cx}" cy="${cy}" r="3.5" fill="#18181B"/>`;
+
+      switch (diet.id) {
+        case 'clear-liquid':
+          return `
+            <svg viewBox="0 0 420 250" class="w-full h-auto select-none" role="img" aria-label="Interactive Clear Liquid Diet Tray">
+              <!-- Clinical Tray Base -->
+              <rect x="12" y="14" width="396" height="222" rx="18" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="2"/>
+              <rect x="22" y="24" width="376" height="202" rx="12" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+              <text x="34" y="42" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#64748B" font-weight="600">OPTICAL CLARITY TEST: 100% TRANSLUCENT AT 37°C</text>
+
+              <!-- 1. Clarified Broth Bowl -->
+              <g class="tray-hotspot ${isAct('cl-broth')}" tabindex="0" data-diet="${diet.id}" data-spot="cl-broth" role="button" aria-label="Clarified Fat-Free Broth">
+                <ellipse cx="115" cy="118" rx="58" ry="44" fill="#E0F2FE" stroke="#0284C7" stroke-width="2"/>
+                <ellipse cx="115" cy="118" rx="46" ry="33" fill="#FEF3C7" fill-opacity="0.78" stroke="#D97706" stroke-width="1.2"/>
+                <!-- Translucent grid lines visible through clear broth -->
+                <path d="M88 112h54M88 124h54M115 94v48" stroke="#F59E0B" stroke-opacity="0.45" stroke-width="1"/>
+                <text x="115" y="175" text-anchor="middle" font-size="10" font-weight="700" fill="#18181B">Clear Broth</text>
+                ${ring(148, 92, 'cl-broth')}
+              </g>
+
+              <!-- 2. Translucent Gelatin Cup -->
+              <g class="tray-hotspot ${isAct('cl-gelatin')}" tabindex="0" data-diet="${diet.id}" data-spot="cl-gelatin" role="button" aria-label="Plain Translucent Gelatin">
+                <rect x="206" y="76" width="76" height="72" rx="12" fill="#FFE4E6" stroke="#E11D48" stroke-width="2"/>
+                <rect x="218" y="88" width="52" height="48" rx="8" fill="#FB7185" fill-opacity="0.45"/>
+                <path d="M225 98h38M225 112h38" stroke="#FFFFFF" stroke-opacity="0.75" stroke-width="2" stroke-linecap="round"/>
+                <text x="244" y="175" text-anchor="middle" font-size="10" font-weight="700" fill="#18181B">Plain Gelatin</text>
+                ${ring(272, 86, 'cl-gelatin')}
+              </g>
+
+              <!-- 3. Filtered Apple Juice -->
+              <g class="tray-hotspot ${isAct('cl-juice')}" tabindex="0" data-diet="${diet.id}" data-spot="cl-juice" role="button" aria-label="Filtered Apple Juice">
+                <circle cx="338" cy="96" r="32" fill="#FEF9C3" stroke="#CA8A04" stroke-width="2"/>
+                <circle cx="338" cy="96" r="24" fill="#FDE047" fill-opacity="0.55"/>
+                <text x="338" y="140" text-anchor="middle" font-size="9.5" font-weight="700" fill="#18181B">Apple Juice</text>
+                ${ring(360, 74, 'cl-juice')}
+              </g>
+
+              <!-- 4. Sterile Water & Electrolyte Ice -->
+              <g class="tray-hotspot ${isAct('cl-water')}" tabindex="0" data-diet="${diet.id}" data-spot="cl-water" role="button" aria-label="Sterile Water and Electrolyte Ice">
+                <rect x="304" y="152" width="68" height="44" rx="10" fill="#ECFEFF" stroke="#0891B2" stroke-width="2"/>
+                <rect x="316" y="162" width="16" height="16" rx="3" fill="#FFFFFF" stroke="#06B6D4" stroke-width="1.2"/>
+                <rect x="340" y="166" width="16" height="16" rx="3" fill="#FFFFFF" stroke="#06B6D4" stroke-width="1.2"/>
+                <text x="338" y="210" text-anchor="middle" font-size="9.5" font-weight="700" fill="#18181B">Water / Ice</text>
+                ${ring(364, 158, 'cl-water')}
+              </g>
+            </svg>`;
+
+        case 'full-liquid':
+          return `
+            <svg viewBox="0 0 420 250" class="w-full h-auto select-none" role="img" aria-label="Interactive Full Liquid Diet Tray">
+              <rect x="12" y="14" width="396" height="222" rx="18" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="2"/>
+              <rect x="22" y="24" width="376" height="202" rx="12" fill="#FFFFFF" stroke="#DBEAFE" stroke-width="1.5"/>
+              <text x="34" y="42" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#1D4ED8" font-weight="600">POURABLE EMULSIONS · ZERO SOLID PARTICULATES</text>
+
+              <!-- 1. Strained Cream Soup -->
+              <g class="tray-hotspot ${isAct('fl-soup')}" tabindex="0" data-diet="${diet.id}" data-spot="fl-soup" role="button" aria-label="Strained Cream Soup">
+                <circle cx="105" cy="116" r="50" fill="#F8FAFC" stroke="#475569" stroke-width="2"/>
+                <circle cx="105" cy="116" r="40" fill="#FED7AA" stroke="#EA580C" stroke-width="1.5"/>
+                <path d="M85 112c10-6 30-6 40 0" stroke="#FFF7ED" stroke-width="3" fill="none" stroke-linecap="round"/>
+                <text x="105" y="182" text-anchor="middle" font-size="10" font-weight="700" fill="#18181B">Strained Cream Soup</text>
+                ${ring(140, 82, 'fl-soup')}
+              </g>
+
+              <!-- 2. Smooth Yogurt / Custard -->
+              <g class="tray-hotspot ${isAct('fl-yogurt')}" tabindex="0" data-diet="${diet.id}" data-spot="fl-yogurt" role="button" aria-label="Smooth Custard or Plain Yogurt">
+                <circle cx="222" cy="116" r="44" fill="#FEFCE8" stroke="#CA8A04" stroke-width="2"/>
+                <circle cx="222" cy="116" r="34" fill="#FEF08A"/>
+                <text x="222" y="182" text-anchor="middle" font-size="10" font-weight="700" fill="#18181B">Smooth Custard</text>
+                ${ring(252, 86, 'fl-yogurt')}
+              </g>
+
+              <!-- 3. Thinned Cream of Wheat -->
+              <g class="tray-hotspot ${isAct('fl-farina')}" tabindex="0" data-diet="${diet.id}" data-spot="fl-farina" role="button" aria-label="Thinned Cream of Wheat">
+                <rect x="292" y="64" width="86" height="56" rx="12" fill="#F5F5F4" stroke="#78716C" stroke-width="2"/>
+                <rect x="302" y="74" width="66" height="36" rx="8" fill="#E7E5E4"/>
+                <text x="335" y="134" text-anchor="middle" font-size="9.5" font-weight="700" fill="#18181B">Thinned Farina</text>
+                ${ring(368, 72, 'fl-farina')}
+              </g>
+
+              <!-- 4. Oral Nutritional Supplement -->
+              <g class="tray-hotspot ${isAct('fl-shake')}" tabindex="0" data-diet="${diet.id}" data-spot="fl-shake" role="button" aria-label="Oral Nutritional Supplement">
+                <rect x="298" y="148" width="74" height="50" rx="10" fill="#DBEAFE" stroke="#2563EB" stroke-width="2"/>
+                <text x="335" y="177" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" font-weight="700" fill="#1E40AF">+300 kcal</text>
+                <text x="335" y="212" text-anchor="middle" font-size="9.5" font-weight="700" fill="#18181B">Protein Shake</text>
+                ${ring(364, 154, 'fl-shake')}
+              </g>
+            </svg>`;
+
+        case 'soft-diet':
+          return `
+            <svg viewBox="0 0 420 250" class="w-full h-auto select-none" role="img" aria-label="Interactive Soft Diet Plate">
+              <rect x="12" y="14" width="396" height="222" rx="18" fill="#EFF6F2" stroke="#BBF7D0" stroke-width="2"/>
+              <text x="30" y="38" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#2E5A44" font-weight="600">FORK-TENDER MATRIX · LOW GASTRIC IRRITATION</text>
+
+              <!-- Main Dinner Plate -->
+              <circle cx="170" cy="134" r="88" fill="#FFFFFF" stroke="#94A3B8" stroke-width="2.5"/>
+              <circle cx="170" cy="134" r="76" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+
+              <!-- 1. Poached Flaky Fish -->
+              <g class="tray-hotspot ${isAct('sd-fish')}" tabindex="0" data-diet="${diet.id}" data-spot="sd-fish" role="button" aria-label="Poached Flaky White Fish">
+                <path d="M108 118c18-24 58-24 72 0-14 22-54 22-72 0z" fill="#FDE68A" stroke="#D97706" stroke-width="2"/>
+                <path d="M124 114c10-6 26-6 36 0M126 122c10-4 24-4 32 0" stroke="#B45309" stroke-width="1.2" fill="none"/>
+                <text x="142" y="92" text-anchor="middle" font-size="9.5" font-weight="700" fill="#18181B">Flaky Fish</text>
+                ${ring(176, 108, 'sd-fish')}
+              </g>
+
+              <!-- 2. Whipped Mashed Potatoes -->
+              <g class="tray-hotspot ${isAct('sd-potato')}" tabindex="0" data-diet="${diet.id}" data-spot="sd-potato" role="button" aria-label="Whipped Mashed Potatoes">
+                <ellipse cx="140" cy="166" rx="34" ry="22" fill="#FEF9C3" stroke="#CA8A04" stroke-width="1.8"/>
+                <path d="M124 164c8-6 24-6 32 0" stroke="#EAB308" stroke-width="1.5" fill="none"/>
+                <text x="140" y="198" text-anchor="middle" font-size="9" font-weight="700" fill="#18181B">Mashed Potato</text>
+                ${ring(168, 156, 'sd-potato')}
+              </g>
+
+              <!-- 3. Steamed Peeled Carrots -->
+              <g class="tray-hotspot ${isAct('sd-carrots')}" tabindex="0" data-diet="${diet.id}" data-spot="sd-carrots" role="button" aria-label="Steamed Peeled Carrots">
+                <circle cx="206" cy="144" r="13" fill="#FB923C" stroke="#C2410C" stroke-width="1.5"/>
+                <circle cx="222" cy="126" r="12" fill="#FDBA74" stroke="#C2410C" stroke-width="1.5"/>
+                <circle cx="220" cy="162" r="12" fill="#FB923C" stroke="#C2410C" stroke-width="1.5"/>
+                <text x="214" y="186" text-anchor="middle" font-size="9" font-weight="700" fill="#18181B">Soft Carrots</text>
+                ${ring(230, 142, 'sd-carrots')}
+              </g>
+
+              <!-- 4. Ripe Banana & Canned Peaches Side Bowl -->
+              <g class="tray-hotspot ${isAct('sd-banana')}" tabindex="0" data-diet="${diet.id}" data-spot="sd-banana" role="button" aria-label="Ripe Banana and Canned Peaches">
+                <circle cx="332" cy="128" r="52" fill="#FFFFFF" stroke="#94A3B8" stroke-width="2"/>
+                <path d="M306 134c14 18 42 18 52-6-16 8-36 8-52 6z" fill="#FACC15" stroke="#A16207" stroke-width="1.8"/>
+                <circle cx="332" cy="112" r="15" fill="#FDBA74" stroke="#EA580C" stroke-width="1.5"/>
+                <text x="332" y="196" text-anchor="middle" font-size="9.5" font-weight="700" fill="#18181B">Ripe Banana &amp; Peach</text>
+                ${ring(366, 94, 'sd-banana')}
+              </g>
+            </svg>`;
+
+        case 'dysphagia':
+          return `
+            <svg viewBox="0 0 420 250" class="w-full h-auto select-none" role="img" aria-label="Interactive IDDSI Dysphagia Diet Tray">
+              <rect x="12" y="14" width="396" height="222" rx="18" fill="#FDF3F0" stroke="#FECACA" stroke-width="2"/>
+              <text x="30" y="38" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#B44C32" font-weight="600">IDDSI STANDARDIZED · AIRWAY PROTECTION PROTOCOL</text>
+
+              <!-- 1. IDDSI Level 4 Pureed Entree -->
+              <g class="tray-hotspot ${isAct('dy-puree')}" tabindex="0" data-diet="${diet.id}" data-spot="dy-puree" role="button" aria-label="IDDSI Level 4 Pureed Entree">
+                <circle cx="112" cy="124" r="54" fill="#FFFFFF" stroke="#94A3B8" stroke-width="2"/>
+                <ellipse cx="112" cy="124" rx="34" ry="26" fill="#FDBA74" stroke="#C2410C" stroke-width="2"/>
+                <text x="112" y="127" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8.5" font-weight="700" fill="#7C2D12">LVL 4 PUREE</text>
+                <text x="112" y="194" text-anchor="middle" font-size="9.5" font-weight="700" fill="#18181B">Cohesive Puree</text>
+                ${ring(148, 88, 'dy-puree')}
+              </g>
+
+              <!-- 2. Thickened Liquid Cup -->
+              <g class="tray-hotspot ${isAct('dy-thick')}" tabindex="0" data-diet="${diet.id}" data-spot="dy-thick" role="button" aria-label="Thickened Liquid IDDSI Level 2 or 3">
+                <rect x="192" y="70" width="84" height="94" rx="14" fill="#FFFFFF" stroke="#B44C32" stroke-width="2"/>
+                <rect x="202" y="94" width="64" height="60" rx="8" fill="#FCA5A5" fill-opacity="0.65"/>
+                <text x="234" y="122" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8.5" font-weight="700" fill="#7F1D1D">LVL 2 / 3</text>
+                <text x="234" y="135" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" fill="#7F1D1D">THICKENED</text>
+                <text x="234" y="194" text-anchor="middle" font-size="9.5" font-weight="700" fill="#18181B">Thickened Fluid</text>
+                ${ring(266, 80, 'dy-thick')}
+              </g>
+
+              <!-- 3. Smooth Single-Phase Mousse -->
+              <g class="tray-hotspot ${isAct('dy-mousse')}" tabindex="0" data-diet="${diet.id}" data-spot="dy-mousse" role="button" aria-label="Smooth Fruit Mousse without syneresis">
+                <circle cx="342" cy="96" r="34" fill="#FFFFFF" stroke="#94A3B8" stroke-width="2"/>
+                <circle cx="342" cy="96" r="24" fill="#FDE047" stroke="#CA8A04" stroke-width="1.5"/>
+                <text x="342" y="142" text-anchor="middle" font-size="9" font-weight="700" fill="#18181B">No-Weep Mousse</text>
+                ${ring(366, 72, 'dy-mousse')}
+              </g>
+
+              <!-- 4. IDDSI 10mL Syringe & Fork Test Gauge -->
+              <g class="tray-hotspot ${isAct('dy-iddsi')}" tabindex="0" data-diet="${diet.id}" data-spot="dy-iddsi" role="button" aria-label="IDDSI Syringe and Fork Verification">
+                <rect x="298" y="156" width="90" height="44" rx="10" fill="#18181B"/>
+                <text x="343" y="175" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8.5" font-weight="700" fill="#FDE047">10mL SYRINGE</text>
+                <text x="343" y="189" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" fill="#FFFFFF">&amp; FORK TEST</text>
+                ${ring(380, 162, 'dy-iddsi')}
+              </g>
+            </svg>`;
+
+        case 'renal':
+          return `
+            <svg viewBox="0 0 420 250" class="w-full h-auto select-none" role="img" aria-label="Interactive Renal CKD Diet Plate">
+              <rect x="12" y="14" width="396" height="222" rx="18" fill="#EFF4FA" stroke="#BFDBFE" stroke-width="2"/>
+              <text x="30" y="38" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#1E3A5F" font-weight="600">LOW K⁺ · LOW PO₄³⁻ · LOW Na⁺ · CONTROLLED HBV PROTEIN</text>
+
+              <!-- Main Renal Plate -->
+              <circle cx="170" cy="134" r="88" fill="#FFFFFF" stroke="#1E3A5F" stroke-width="2.5"/>
+
+              <!-- 1. Egg White & Herb Omelet -->
+              <g class="tray-hotspot ${isAct('rn-eggwhite')}" tabindex="0" data-diet="${diet.id}" data-spot="rn-eggwhite" role="button" aria-label="Egg White and Herb Omelet">
+                <path d="M106 124c14-32 62-32 74 0z" fill="#F8FAFC" stroke="#64748B" stroke-width="2"/>
+                <circle cx="132" cy="112" r="2.5" fill="#16A34A"/>
+                <circle cx="152" cy="110" r="2.5" fill="#16A34A"/>
+                <text x="142" y="88" text-anchor="middle" font-size="9.5" font-weight="700" fill="#18181B">Egg Whites</text>
+                ${ring(174, 104, 'rn-eggwhite')}
+              </g>
+
+              <!-- 2. Steamed White Rice -->
+              <g class="tray-hotspot ${isAct('rn-rice')}" tabindex="0" data-diet="${diet.id}" data-spot="rn-rice" role="button" aria-label="Steamed White Rice">
+                <ellipse cx="136" cy="166" rx="34" ry="22" fill="#F1F5F9" stroke="#94A3B8" stroke-width="1.8"/>
+                <text x="136" y="170" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8.5" font-weight="600" fill="#334155">WHITE RICE</text>
+                ${ring(164, 156, 'rn-rice')}
+              </g>
+
+              <!-- 3. Garlic-Sauteed Green Cabbage -->
+              <g class="tray-hotspot ${isAct('rn-cabbage')}" tabindex="0" data-diet="${diet.id}" data-spot="rn-cabbage" role="button" aria-label="Sauteed Green Cabbage">
+                <ellipse cx="212" cy="148" rx="28" ry="30" fill="#DCFCE7" stroke="#15803D" stroke-width="1.8"/>
+                <path d="M198 142c8-8 20-8 28 0M198 156c8-6 20-6 28 0" stroke="#16A34A" stroke-width="1.5" fill="none"/>
+                <text x="212" y="190" text-anchor="middle" font-size="9" font-weight="700" fill="#18181B">Cabbage</text>
+                ${ring(232, 132, 'rn-cabbage')}
+              </g>
+
+              <!-- 4. Fresh Red Grapes & Berries -->
+              <g class="tray-hotspot ${isAct('rn-berries')}" tabindex="0" data-diet="${diet.id}" data-spot="rn-berries" role="button" aria-label="Fresh Red Grapes and Berries">
+                <circle cx="332" cy="128" r="50" fill="#FFFFFF" stroke="#1E3A5F" stroke-width="2"/>
+                <circle cx="322" cy="120" r="10" fill="#9333EA"/>
+                <circle cx="342" cy="120" r="10" fill="#7E22CE"/>
+                <circle cx="332" cy="138" r="10" fill="#A855F7"/>
+                <text x="332" y="194" text-anchor="middle" font-size="9.5" font-weight="700" fill="#18181B">Low-K⁺ Grapes</text>
+                ${ring(366, 94, 'rn-berries')}
+              </g>
+            </svg>`;
+
+        case 'low-purine':
+          return `
+            <svg viewBox="0 0 420 250" class="w-full h-auto select-none" role="img" aria-label="Interactive Low-Purine Gout Diet Tray">
+              <rect x="12" y="14" width="396" height="222" rx="18" fill="#F5F3FF" stroke="#DDD6FE" stroke-width="2"/>
+              <text x="30" y="38" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#6D28D9" font-weight="600">TARGET SERUM URATE &lt; 6.8 mg/dL · URICOSURIC SYNERGY</text>
+
+              <!-- 1. Low-Fat Greek Yogurt Bowl -->
+              <g class="tray-hotspot ${isAct('lp-dairy')}" tabindex="0" data-diet="${diet.id}" data-spot="lp-dairy" role="button" aria-label="Low-Fat Greek Yogurt">
+                <circle cx="106" cy="124" r="50" fill="#FFFFFF" stroke="#7C3AED" stroke-width="2"/>
+                <circle cx="106" cy="124" r="38" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
+                <text x="106" y="128" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8.5" font-weight="700" fill="#5B21B6">LOW-FAT DAIRY</text>
+                <text x="106" y="190" text-anchor="middle" font-size="9.5" font-weight="700" fill="#18181B">Skim Yogurt</text>
+                ${ring(142, 88, 'lp-dairy')}
+              </g>
+
+              <!-- 2. Tart Cherries & Citrus -->
+              <g class="tray-hotspot ${isAct('lp-cherries')}" tabindex="0" data-diet="${diet.id}" data-spot="lp-cherries" role="button" aria-label="Tart Cherries and Vitamin C Citrus">
+                <circle cx="222" cy="124" r="46" fill="#FFFFFF" stroke="#E11D48" stroke-width="2"/>
+                <circle cx="212" cy="126" r="11" fill="#BE123C"/>
+                <circle cx="234" cy="128" r="11" fill="#9F1239"/>
+                <path d="M212 115c6-12 16-12 22 2" stroke="#15803D" stroke-width="2" fill="none"/>
+                <text x="222" y="190" text-anchor="middle" font-size="9.5" font-weight="700" fill="#18181B">Tart Cherries</text>
+                ${ring(254, 90, 'lp-cherries')}
+              </g>
+
+              <!-- 3. Poached Eggs & Whole Grains -->
+              <g class="tray-hotspot ${isAct('lp-eggs')}" tabindex="0" data-diet="${diet.id}" data-spot="lp-eggs" role="button" aria-label="Poached Eggs and Whole Grains">
+                <rect x="292" y="64" width="90" height="58" rx="12" fill="#FEF3C7" stroke="#D97706" stroke-width="2"/>
+                <ellipse cx="337" cy="93" rx="24" ry="16" fill="#FFFFFF"/>
+                <circle cx="337" cy="93" r="8" fill="#F59E0B"/>
+                <text x="337" y="136" text-anchor="middle" font-size="9" font-weight="700" fill="#18181B">Eggs &amp; Toast</text>
+                ${ring(372, 72, 'lp-eggs')}
+              </g>
+
+              <!-- 4. 2.5-3.0 L Water Pitchers -->
+              <g class="tray-hotspot ${isAct('lp-water')}" tabindex="0" data-diet="${diet.id}" data-spot="lp-water" role="button" aria-label="2.5 to 3.0 Liters Water Hydration">
+                <rect x="296" y="150" width="82" height="52" rx="10" fill="#E0F2FE" stroke="#0284C7" stroke-width="2"/>
+                <text x="337" y="174" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" font-weight="700" fill="#0369A1">2.5–3.0 L H₂O</text>
+                <text x="337" y="188" text-anchor="middle" font-size="8" fill="#0369A1">Dilutes Urate</text>
+                ${ring(370, 156, 'lp-water')}
+              </g>
+            </svg>`;
+
+        case 'low-residue':
+          return `
+            <svg viewBox="0 0 420 250" class="w-full h-auto select-none" role="img" aria-label="Interactive Low-Residue Bowel Rest Plate">
+              <rect x="12" y="14" width="396" height="222" rx="18" fill="#FEF9EC" stroke="#FDE68A" stroke-width="2"/>
+              <text x="30" y="38" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#9A6700" font-weight="600">&lt;10–15g FIBER/DAY · 95% PROXIMAL SMALL-BOWEL ABSORPTION</text>
+
+              <!-- Plate -->
+              <circle cx="170" cy="134" r="88" fill="#FFFFFF" stroke="#9A6700" stroke-width="2.5"/>
+
+              <!-- 1. Refined White Pasta -->
+              <g class="tray-hotspot ${isAct('lr-pasta')}" tabindex="0" data-diet="${diet.id}" data-spot="lr-pasta" role="button" aria-label="Refined White Pasta">
+                <ellipse cx="136" cy="116" rx="36" ry="24" fill="#FEF3C7" stroke="#D97706" stroke-width="1.8"/>
+                <path d="M114 114c12-8 32-8 44 0M118 122c10-6 26-6 36 0" stroke="#B45309" stroke-width="1.6" fill="none"/>
+                <text x="136" y="84" text-anchor="middle" font-size="9.5" font-weight="700" fill="#18181B">White Pasta</text>
+                ${ring(168, 102, 'lr-pasta')}
+              </g>
+
+              <!-- 2. Tender Skinless Chicken -->
+              <g class="tray-hotspot ${isAct('lr-chicken')}" tabindex="0" data-diet="${diet.id}" data-spot="lr-chicken" role="button" aria-label="Tender Skinless Chicken Breast">
+                <ellipse cx="138" cy="166" rx="34" ry="22" fill="#FFEDD5" stroke="#EA580C" stroke-width="1.8"/>
+                <text x="138" y="170" text-anchor="middle" font-size="9" font-weight="700" fill="#9A3412">Lean Chicken</text>
+                ${ring(166, 156, 'lr-chicken')}
+              </g>
+
+              <!-- 3. Peeled Seeded Zucchini -->
+              <g class="tray-hotspot ${isAct('lr-zucchini')}" tabindex="0" data-diet="${diet.id}" data-spot="lr-zucchini" role="button" aria-label="Peeled and Seeded Cooked Zucchini">
+                <circle cx="212" cy="144" r="24" fill="#ECFCCB" stroke="#65A30D" stroke-width="1.8"/>
+                <text x="212" y="147" text-anchor="middle" font-size="8.5" font-weight="700" fill="#3F6212">Peeled Veg</text>
+                ${ring(230, 126, 'lr-zucchini')}
+              </g>
+
+              <!-- 4. Refined Saltines & Smooth PB -->
+              <g class="tray-hotspot ${isAct('lr-crackers')}" tabindex="0" data-diet="${diet.id}" data-spot="lr-crackers" role="button" aria-label="Refined Saltines and Smooth Peanut Butter">
+                <rect x="290" y="84" width="88" height="84" rx="14" fill="#FFFFFF" stroke="#9A6700" stroke-width="2"/>
+                <rect x="306" y="100" width="56" height="32" rx="6" fill="#FDE68A" stroke="#CA8A04" stroke-width="1.5"/>
+                <ellipse cx="334" cy="148" rx="22" ry="10" fill="#D97706"/>
+                <text x="334" y="186" text-anchor="middle" font-size="9.5" font-weight="700" fill="#18181B">Saltines &amp; Smooth PB</text>
+                ${ring(368, 92, 'lr-crackers')}
+              </g>
+            </svg>`;
+
+        case 'high-fiber':
+          return `
+            <svg viewBox="0 0 420 250" class="w-full h-auto select-none" role="img" aria-label="Interactive High-Fiber Diet Bowl">
+              <rect x="12" y="14" width="396" height="222" rx="18" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="2"/>
+              <text x="30" y="38" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#15803D" font-weight="600">25–38g SOLUBLE + INSOLUBLE FIBER · MANDATORY HYDRATION</text>
+
+              <!-- Grain & Legume Bowl -->
+              <circle cx="170" cy="134" r="88" fill="#FFFFFF" stroke="#15803D" stroke-width="2.5"/>
+
+              <!-- 1. Steel-Cut Oats & Chia -->
+              <g class="tray-hotspot ${isAct('hf-oats')}" tabindex="0" data-diet="${diet.id}" data-spot="hf-oats" role="button" aria-label="Steel-Cut Oats and Chia Seeds">
+                <path d="M104 126c14-34 66-34 80 0z" fill="#FEF3C7" stroke="#B45309" stroke-width="2"/>
+                <circle cx="132" cy="112" r="2" fill="#18181B"/>
+                <circle cx="144" cy="108" r="2" fill="#18181B"/>
+                <circle cx="156" cy="114" r="2" fill="#18181B"/>
+                <text x="144" y="88" text-anchor="middle" font-size="9.5" font-weight="700" fill="#18181B">Oats &amp; Chia</text>
+                ${ring(176, 106, 'hf-oats')}
+              </g>
+
+              <!-- 2. Black Beans & Lentils -->
+              <g class="tray-hotspot ${isAct('hf-beans')}" tabindex="0" data-diet="${diet.id}" data-spot="hf-beans" role="button" aria-label="Black Beans and Lentils">
+                <ellipse cx="136" cy="166" rx="34" ry="22" fill="#44403C" stroke="#1C1917" stroke-width="1.8"/>
+                <text x="136" y="170" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8.5" font-weight="700" fill="#FFFFFF">15g BEANS</text>
+                ${ring(164, 156, 'hf-beans')}
+              </g>
+
+              <!-- 3. Unpeeled Apple & Berries -->
+              <g class="tray-hotspot ${isAct('hf-apple')}" tabindex="0" data-diet="${diet.id}" data-spot="hf-apple" role="button" aria-label="Unpeeled Apple and Berries">
+                <circle cx="212" cy="146" r="24" fill="#FEE2E2" stroke="#DC2626" stroke-width="2"/>
+                <text x="212" y="149" text-anchor="middle" font-size="8.5" font-weight="700" fill="#991B1B">Skin-On Fruit</text>
+                ${ring(230, 128, 'hf-apple')}
+              </g>
+
+              <!-- 4. Mandatory 2.5L Hydration -->
+              <g class="tray-hotspot ${isAct('hf-water')}" tabindex="0" data-diet="${diet.id}" data-spot="hf-water" role="button" aria-label="Mandatory 2.5 Liters Hydration">
+                <rect x="292" y="82" width="86" height="96" rx="14" fill="#E0F2FE" stroke="#0284C7" stroke-width="2"/>
+                <text x="335" y="124" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" font-weight="700" fill="#0369A1">2.5 L H₂O</text>
+                <text x="335" y="140" text-anchor="middle" font-size="8.5" font-weight="600" fill="#0C4A6E">Swells Fiber Gel</text>
+                <text x="335" y="194" text-anchor="middle" font-size="9.5" font-weight="700" fill="#18181B">Hydration Pairing</text>
+                ${ring(368, 90, 'hf-water')}
+              </g>
+            </svg>`;
+
+        case 'carb-controlled':
+        default:
+          return `
+            <svg viewBox="0 0 420 250" class="w-full h-auto select-none" role="img" aria-label="Interactive Carbohydrate-Controlled Diabetes Plate">
+              <rect x="12" y="14" width="396" height="222" rx="18" fill="#F0FDFA" stroke="#99F6E4" stroke-width="2"/>
+              <text x="30" y="38" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#0F4C5C" font-weight="600">DIABETES PLATE METHOD: 50% NON-STARCHY · 25% PROTEIN · 25% CARB</text>
+
+              <!-- Diabetes Divided Plate -->
+              <circle cx="170" cy="134" r="88" fill="#FFFFFF" stroke="#0F4C5C" stroke-width="2.5"/>
+              <!-- Divider Lines -->
+              <line x1="170" y1="46" x2="170" y2="222" stroke="#0F4C5C" stroke-width="1.5" stroke-dasharray="4 3"/>
+              <line x1="170" y1="134" x2="258" y2="134" stroke="#0F4C5C" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+              <!-- 1. Left Half: 50% Non-Starchy Vegetables -->
+              <g class="tray-hotspot ${isAct('cc-veg')}" tabindex="0" data-diet="${diet.id}" data-spot="cc-veg" role="button" aria-label="50 Percent Non-Starchy Vegetables">
+                <path d="M166 54 A80 80 0 0 0 166 214 Z" fill="#DCFCE7" stroke="#15803D" stroke-width="1.5"/>
+                <text x="128" y="128" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5" font-weight="700" fill="#14532D">50% VEG</text>
+                <text x="128" y="142" text-anchor="middle" font-size="8.5" font-weight="600" fill="#166534">Non-Starchy</text>
+                ${ring(112, 96, 'cc-veg')}
+              </g>
+
+              <!-- 2. Top-Right Quarter: 25% Lean Protein -->
+              <g class="tray-hotspot ${isAct('cc-protein')}" tabindex="0" data-diet="${diet.id}" data-spot="cc-protein" role="button" aria-label="25 Percent Lean Grilled Protein">
+                <path d="M174 54 A80 80 0 0 1 250 130 L174 130 Z" fill="#FFEDD5" stroke="#EA580C" stroke-width="1.5"/>
+                <text x="208" y="102" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8.5" font-weight="700" fill="#9A3412">25% PROTEIN</text>
+                <text x="208" y="114" text-anchor="middle" font-size="8" fill="#9A3412">0g Carb</text>
+                ${ring(226, 86, 'cc-protein')}
+              </g>
+
+              <!-- 3. Bottom-Right Quarter: 25% Measured Complex Carb -->
+              <g class="tray-hotspot ${isAct('cc-carb')}" tabindex="0" data-diet="${diet.id}" data-spot="cc-carb" role="button" aria-label="25 Percent Measured Complex Starch">
+                <path d="M174 138 L250 138 A80 80 0 0 1 174 214 Z" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5"/>
+                <text x="208" y="166" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8.5" font-weight="700" fill="#92400E">25% CARB</text>
+                <text x="208" y="178" text-anchor="middle" font-size="8" fill="#92400E">Low-GI Starch</text>
+                ${ring(226, 182, 'cc-carb')}
+              </g>
+
+              <!-- 4. Side Healthy Unsaturated Fats -->
+              <g class="tray-hotspot ${isAct('cc-fat')}" tabindex="0" data-diet="${diet.id}" data-spot="cc-fat" role="button" aria-label="Healthy Unsaturated Fats">
+                <circle cx="332" cy="128" r="48" fill="#FFFFFF" stroke="#0F4C5C" stroke-width="2"/>
+                <ellipse cx="332" cy="128" rx="26" ry="18" fill="#BEF264" stroke="#4D7C0F" stroke-width="1.8"/>
+                <circle cx="332" cy="128" r="8" fill="#78350F"/>
+                <text x="332" y="192" text-anchor="middle" font-size="9.5" font-weight="700" fill="#18181B">Avocado / MUFA</text>
+                ${ring(364, 94, 'cc-fat')}
+              </g>
+            </svg>`;
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // 4. APPLICATION STATE & RENDERING FUNCTIONS
+    // -------------------------------------------------------------------------
+    const state = {
+      viewMode: 'explorer', // 'explorer' | 'matrix'
+      filter: 'all',        // 'all' | 'gi' | 'texture' | 'metabolic'
+      search: '',
+      selectedHotspots: {}, // dietId -> hotspotId
+      revealedChecks: {}    // `${dietId}-${idx}` -> boolean
+    };
+
+    // Initialize default active hotspot per diet
+    THERAPEUTIC_DIETS.forEach((d) => {
+      state.selectedHotspots[d.id] = d.hotspots[0].id;
+    });
+
+    function showToast(message) {
+      const banner = document.getElementById('toastBanner');
+      const msgEl = document.getElementById('toastMessage');
+      msgEl.textContent = message;
+      banner.classList.remove('hidden');
+      requestAnimationFrame(() => {
+        banner.classList.remove('translate-y-2', 'opacity-0');
+      });
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(() => {
+        banner.classList.add('translate-y-2', 'opacity-0');
+        setTimeout(() => banner.classList.add('hidden'), 300);
+      }, 2600);
+    }
+
+    function copyTextToClipboard(text, confirmationMsg) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'fixed';
+      textarea.style.left = '-9999px';
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+        showToast(confirmationMsg || 'Copied to clipboard.');
+      } catch (err) {
+        showToast('Unable to copy automatically; please select text manually.');
+      }
+      document.body.removeChild(textarea);
+    }
+
+    function getFilteredDiets() {
+      const q = state.search.trim().toLowerCase();
+      return THERAPEUTIC_DIETS.filter((diet) => {
+        const matchesCat = state.filter === 'all' || diet.categories.includes(state.filter);
+        if (!matchesCat) return false;
+        if (!q) return true;
+
+        const searchableBlob = [
+          diet.name,
+          diet.badge,
+          ...Object.values(diet.columns).flatMap((col) => [col.content, col.why, col.because]),
+          ...diet.hotspots.flatMap((h) => [h.label, h.tag, h.note])
+        ]
+          .join(' ')
+          .toLowerCase();
+
+        return searchableBlob.includes(q);
+      });
+    }
+
+    // Helper: Render standardized Content + WHY + BECAUSE block
+    function renderCausalBlock(colData, compact = false) {
+      if (compact) {
+        return `
+          <div class="space-y-1.5">
+            <p class="text-ink font-medium">${colData.content}</p>
+            <div class="pl-2 border-l-2 border-slateClinical bg-slateSoft/55 py-1 px-1.5 rounded-r">
+              <p class="text-[11.5px] leading-snug">
+                <span class="font-mono font-bold text-slateClinical uppercase">Why:</span> ${colData.why}
+              </p>
+            </div>
+            <div class="pl-2 border-l-2 border-terracotta bg-terracottaSoft/55 py-1 px-1.5 rounded-r">
+              <p class="text-[11.5px] leading-snug">
+                <span class="font-mono font-bold text-terracotta uppercase">Because:</span> ${colData.because}
+              </p>
+            </div>
+          </div>`;
+      }
+
+      return `
+        <div class="space-y-2.5">
+          <p class="text-sm text-ink leading-relaxed font-medium">${colData.content}</p>
+          <div class="rounded-lg bg-slateSoft/70 border border-slateClinical/20 p-2.5">
+            <p class="text-xs sm:text-[13px] text-ink leading-relaxed">
+              <span class="font-mono font-bold text-slateClinical uppercase tracking-wide mr-1">WHY:</span>${colData.why}
+            </p>
+          </div>
+          <div class="rounded-lg bg-terracottaSoft/75 border border-terracotta/20 p-2.5">
+            <p class="text-xs sm:text-[13px] text-ink leading-relaxed">
+              <span class="font-mono font-bold text-terracotta uppercase tracking-wide mr-1">BECAUSE:</span>${colData.because}
+            </p>
+          </div>
+        </div>`;
+    }
+
+    function renderQuickJumpNav(diets) {
+      const nav = document.getElementById('quickJumpNav');
+      if (!diets.length) {
+        nav.classList.add('hidden');
+        return;
+      }
+      nav.classList.remove('hidden');
+      nav.innerHTML =
+        `<span class="font-mono text-[11px] uppercase tracking-wider text-inkMuted px-2 shrink-0 font-semibold">Jump to:</span>` +
+        diets
+          .map(
+            (d) => `
+            <a href="#diet-${d.id}"
+              class="shrink-0 px-2.5 py-1 rounded-md text-xs font-semibold bg-white hover:bg-ink hover:text-paper border border-borderHairline text-ink transition-colors">
+              <span class="font-mono text-inkMuted mr-1">${d.number}</span>${d.name.replace(' Diet', '')}
+            </a>`
+          )
+          .join('');
+    }
+
+    function renderExplorerView(diets) {
+      const container = document.getElementById('dietCardsContainer');
+      container.innerHTML = diets
+        .map((diet) => {
+          const activeSpotId = state.selectedHotspots[diet.id] || diet.hotspots[0].id;
+          const activeSpot = diet.hotspots.find((h) => h.id === activeSpotId) || diet.hotspots[0];
+
+          return `
+            <article id="diet-${diet.id}" class="scroll-mt-36 bg-white border border-borderHairline rounded-2xl shadow-xs overflow-hidden">
+              <!-- Card Top Header -->
+              <div class="px-5 sm:px-7 py-4 sm:py-5 border-b border-borderHairline bg-paperAlt/50 flex flex-col md:flex-row md:items-center justify-between gap-3">
+                <div class="flex items-start sm:items-center gap-3.5">
+                  <span class="font-mono text-sm font-bold px-2.5 py-1 rounded-lg text-white shrink-0" style="background-color: ${diet.accentColor}">
+                    ${diet.number}
+                  </span>
+                  <div>
+                    <h3 class="font-serif text-xl sm:text-2xl font-bold text-ink leading-tight">${diet.name}</h3>
+                    <p class="font-mono text-xs text-inkMuted mt-0.5">${diet.badge}</p>
+                  </div>
+                </div>
+                <div class="flex flex-wrap items-center gap-2">
+                  ${diet.categories
+                    .map((cat) => {
+                      const labelMap = {
+                        gi: 'GI & Post-Op',
+                        texture: 'Swallowing & Texture',
+                        metabolic: 'Renal & Metabolic'
+                      };
+                      return `<span class="font-mono text-[11px] px-2.5 py-1 rounded-full bg-white border border-borderHairline text-inkMuted font-medium">${labelMap[cat]}</span>`;
+                    })
+                    .join('')}
+                </div>
+              </div>
+
+              <!-- Interactive Visual Tray & Clinical Inspector Split Panel -->
+              <div class="grid grid-cols-1 lg:grid-cols-12 border-b border-borderHairline">
+                <!-- Left 7 Cols: Interactive Custom SVG Tray -->
+                <div class="lg:col-span-7 p-4 sm:p-6 bg-paper/40 border-b lg:border-b-0 lg:border-r border-borderHairline flex flex-col justify-between">
+                  <div class="flex items-center justify-between gap-2 mb-3">
+                    <span class="font-mono text-[11px] uppercase tracking-wider font-semibold text-inkMuted">
+                      Interactive Diet Tray Representation
+                    </span>
+                    <span class="font-mono text-[11px] text-slateClinical bg-slateSoft px-2 py-0.5 rounded">
+                      Click hotspots to inspect
+                    </span>
+                  </div>
+
+                  <div class="my-auto">
+                    ${renderDietSVG(diet, activeSpot.id)}
+                  </div>
+
+                  <!-- Hotspot Selector Pills -->
+                  <div class="mt-4 flex flex-wrap gap-1.5">
+                    ${diet.hotspots
+                      .map((h) => {
+                        const selected = h.id === activeSpot.id;
+                        return `
+                          <button type="button" data-diet="${diet.id}" data-spot="${h.id}"
+                            class="spot-pill px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all border ${
+                              selected
+                                ? 'bg-ink text-paper border-ink shadow-xs'
+                                : 'bg-white text-inkMuted border-borderHairline hover:border-ink/40 hover:text-ink'
+                            }">
+                            ${h.label}
+                          </button>`;
+                      })
+                      .join('')}
+                  </div>
+                </div>
+
+                <!-- Right 5 Cols: Active Hotspot Readout + Interactive Patient Tray Check -->
+                <div class="lg:col-span-5 p-4 sm:p-6 flex flex-col justify-between gap-5 bg-white">
+                  <!-- Active Hotspot Specification Card -->
+                  <div class="rounded-xl border border-borderHairline bg-paperAlt/45 p-4">
+                    <div class="flex items-center justify-between gap-2 mb-1.5">
+                      <span class="font-mono text-[11px] font-semibold uppercase tracking-wider" style="color: ${diet.accentColor}">
+                        Selected Tray Component
+                      </span>
+                      <span class="font-mono text-[11px] px-2 py-0.5 rounded bg-white border border-borderHairline text-ink font-medium">
+                        ${activeSpot.specs}
+                      </span>
+                    </div>
+                    <h4 class="font-serif text-lg font-bold text-ink">${activeSpot.label}</h4>
+                    <p class="font-mono text-xs text-inkMuted mb-2">${activeSpot.tag}</p>
+                    <p class="text-xs sm:text-sm text-ink leading-relaxed">${activeSpot.note}</p>
+                  </div>
+
+                  <!-- Interactive Meal Tray Safety Simulator -->
+                  <div>
+                    <div class="flex items-center justify-between mb-2">
+                      <span class="font-mono text-[11px] uppercase tracking-wider font-semibold text-ink">
+                        Clinical Tray Audit (Click to Test)
+                      </span>
+                      <span class="font-mono text-[11px] text-inkMuted">Allowed vs. High-Risk</span>
+                    </div>
+                    <div class="space-y-2">
+                      ${diet.trayCheck
+                        .map((chk, idx) => {
+                          const key = `${diet.id}-${idx}`;
+                          const revealed = !!state.revealedChecks[key];
+                          if (!revealed) {
+                            return `
+                              <button type="button" data-check-key="${key}"
+                                class="tray-check-btn w-full text-left px-3 py-2 rounded-lg border border-borderHairline bg-paper/50 hover:bg-paperAlt transition-colors flex items-center justify-between gap-2 text-xs font-medium text-ink">
+                                <span>${chk.item}</span>
+                                <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-white border border-borderHairline text-inkMuted shrink-0">
+                                  Inspect &rarr;
+                                </span>
+                              </button>`;
+                          }
+                          return `
+                            <button type="button" data-check-key="${key}"
+                              class="tray-check-btn w-full text-left px-3 py-2.5 rounded-lg border transition-colors text-xs ${
+                                chk.valid
+                                  ? 'bg-sageSoft border-sage/30 text-ink'
+                                  : 'bg-terracottaSoft border-terracotta/30 text-ink'
+                              }">
+                              <div class="flex items-center justify-between font-bold mb-0.5">
+                                <span>${chk.item}</span>
+                                <span class="font-mono text-[10px] uppercase px-1.5 py-0.5 rounded ${
+                                  chk.valid ? 'bg-sage text-white' : 'bg-terracotta text-white'
+                                }">
+                                  ${chk.valid ? 'Allowed' : 'Prohibited'}
+                                </span>
+                              </div>
+                              <p class="text-[11.5px] leading-snug text-ink/90">${chk.reason}</p>
+                            </button>`;
+                        })
+                        .join('')}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 5-Column Tabularized Deep-Dive Grid (Every Column has Content + WHY + BECAUSE) -->
+              <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 divide-y md:divide-y-0 md:divide-x divide-borderHairline">
+                <div class="p-4 sm:p-5">
+                  <div class="font-mono text-[11px] uppercase tracking-wider text-inkMuted font-bold mb-2 pb-1.5 border-b border-borderHairline">
+                    1. Diet Category
+                  </div>
+                  ${renderCausalBlock(diet.columns.category, false)}
+                </div>
+
+                <div class="p-4 sm:p-5">
+                  <div class="font-mono text-[11px] uppercase tracking-wider text-inkMuted font-bold mb-2 pb-1.5 border-b border-borderHairline">
+                    2. Indication / Pathophysiology
+                  </div>
+                  ${renderCausalBlock(diet.columns.indication, false)}
+                </div>
+
+                <div class="p-4 sm:p-5 bg-sageSoft/20">
+                  <div class="font-mono text-[11px] uppercase tracking-wider text-sage font-bold mb-2 pb-1.5 border-b border-borderHairline">
+                    3. Allowed Food / Examples
+                  </div>
+                  ${renderCausalBlock(diet.columns.allowed, false)}
+                </div>
+
+                <div class="p-4 sm:p-5 bg-terracottaSoft/20">
+                  <div class="font-mono text-[11px] uppercase tracking-wider text-terracotta font-bold mb-2 pb-1.5 border-b border-borderHairline">
+                    4. Prohibited / High-Risk Food
+                  </div>
+                  ${renderCausalBlock(diet.columns.prohibited, false)}
+                </div>
+
+                <div class="p-4 sm:p-5 md:col-span-2 xl:col-span-1 bg-slateSoft/20">
+                  <div class="font-mono text-[11px] uppercase tracking-wider text-slateClinical font-bold mb-2 pb-1.5 border-b border-borderHairline">
+                    5. Rationale
+                  </div>
+                  ${renderCausalBlock(diet.columns.rationale, false)}
+                </div>
+              </div>
+            </article>`;
+        })
+        .join('');
+    }
+
+    function renderMatrixView(diets) {
+      const tbody = document.getElementById('matrixTableBody');
+      tbody.innerHTML = diets
+        .map(
+          (diet, i) => `
+          <tr class="${i % 2 === 1 ? 'bg-paper/70' : 'bg-white'} align-top">
+            <td class="p-3 border border-borderHairline">
+              <div class="mb-2">
+                <span class="font-mono text-[10px] font-bold px-1.5 py-0.5 rounded text-white mr-1" style="background-color: ${diet.accentColor}">${diet.number}</span>
+                <strong class="font-serif text-sm font-bold text-ink">${diet.name}</strong>
+                <div class="font-mono text-[10px] text-inkMuted mt-0.5">${diet.badge}</div>
+              </div>
+              ${renderCausalBlock(diet.columns.category, true)}
+            </td>
+            <td class="p-3 border border-borderHairline">
+              ${renderCausalBlock(diet.columns.indication, true)}
+            </td>
+            <td class="p-3 border border-borderHairline bg-sageSoft/20">
+              ${renderCausalBlock(diet.columns.allowed, true)}
+            </td>
+            <td class="p-3 border border-borderHairline bg-terracottaSoft/20">
+              ${renderCausalBlock(diet.columns.prohibited, true)}
+            </td>
+            <td class="p-3 border border-borderHairline bg-slateSoft/20">
+              ${renderCausalBlock(diet.columns.rationale, true)}
+            </td>
+          </tr>`
+        )
+        .join('');
+    }
+
+    function renderReferences() {
+      const list = document.getElementById('referencesList');
+      list.innerHTML = APA_REFERENCES.map(
+        (ref) => `
+          <div class="bg-white border border-borderHairline rounded-xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-start justify-between gap-4 shadow-xs">
+            <div class="space-y-1.5">
+              <span class="font-mono text-[10.5px] uppercase tracking-wider px-2 py-0.5 rounded bg-paperAlt text-inkMuted border border-borderHairline font-semibold">
+                ${ref.topic}
+              </span>
+              <p class="text-xs sm:text-sm text-ink leading-relaxed pl-6 -indent-6">
+                ${ref.authorsYear} ${ref.title} <em class="italic">${ref.journal}</em>, <em class="italic">${ref.volumeIssuePages}</em>
+                <a href="${ref.url}" target="_blank" rel="noopener noreferrer"
+                  class="text-slateClinical hover:text-terracotta underline decoration-slateClinical/40 underline-offset-2 font-mono text-xs break-all ml-1">
+                  ${ref.url}
+                </a>
+              </p>
+            </div>
+            <button type="button" data-copy-ref="${ref.id}"
+              class="copy-ref-btn shrink-0 self-start px-3 py-1.5 rounded-lg border border-borderHairline bg-paperAlt hover:bg-ink hover:text-paper text-xs font-semibold text-ink transition-colors flex items-center gap-1.5 no-print">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"></path>
+              </svg>
+              Copy APA
+            </button>
+          </div>`
+      ).join('');
+    }
+
+    function renderApp() {
+      const diets = getFilteredDiets();
+      const emptyState = document.getElementById('emptyState');
+      const explorerView = document.getElementById('explorerView');
+      const matrixView = document.getElementById('matrixView');
+
+      if (!diets.length) {
+        emptyState.classList.remove('hidden');
+        explorerView.classList.add('hidden');
+        matrixView.classList.add('hidden');
+        return;
+      }
+
+      emptyState.classList.add('hidden');
+      renderQuickJumpNav(diets);
+      renderExplorerView(diets);
+      renderMatrixView(diets);
+
+      if (state.viewMode === 'explorer') {
+        explorerView.classList.remove('hidden');
+        matrixView.classList.add('hidden');
+      } else {
+        explorerView.classList.add('hidden');
+        matrixView.classList.remove('hidden');
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // 5. EVENT LISTENERS & DELEGATION
+    // -------------------------------------------------------------------------
+    document.addEventListener('DOMContentLoaded', () => {
+      renderReferences();
+      renderApp();
+
+      // View Switchers
+      const btnExplorer = document.getElementById('btnExplorerView');
+      const btnMatrix = document.getElementById('btnMatrixView');
+
+      btnExplorer.addEventListener('click', () => {
+        state.viewMode = 'explorer';
+        btnExplorer.classList.add('bg-ink', 'text-paper', 'shadow-sm');
+        btnExplorer.classList.remove('text-inkMuted');
+        btnMatrix.classList.remove('bg-ink', 'text-paper', 'shadow-sm');
+        btnMatrix.classList.add('text-inkMuted');
+        renderApp();
+      });
+
+      btnMatrix.addEventListener('click', () => {
+        state.viewMode = 'matrix';
+        btnMatrix.classList.add('bg-ink', 'text-paper', 'shadow-sm');
+        btnMatrix.classList.remove('text-inkMuted');
+        btnExplorer.classList.remove('bg-ink', 'text-paper', 'shadow-sm');
+        btnExplorer.classList.add('text-inkMuted');
+        renderApp();
+      });
+
+      // Print Landscape Button
+      document.getElementById('btnPrintLandscape').addEventListener('click', () => {
+        window.print();
+      });
+
+      // Category Filter Pills
+      document.getElementById('categoryFilters').addEventListener('click', (e) => {
+        const pill = e.target.closest('.filter-pill');
+        if (!pill) return;
+        state.filter = pill.dataset.filter;
+
+        document.querySelectorAll('.filter-pill').forEach((btn) => {
+          btn.classList.remove('bg-slateClinical', 'text-white');
+          btn.classList.add('bg-white', 'text-inkMuted', 'border', 'border-borderHairline');
+        });
+        pill.classList.add('bg-slateClinical', 'text-white');
+        pill.classList.remove('bg-white', 'text-inkMuted', 'border', 'border-borderHairline');
+        renderApp();
+      });
+
+      // Search Input
+      document.getElementById('searchInput').addEventListener('input', (e) => {
+        state.search = e.target.value;
+        renderApp();
+      });
+
+      // Reset Filters
+      document.getElementById('btnResetFilters').addEventListener('click', () => {
+        state.filter = 'all';
+        state.search = '';
+        document.getElementById('searchInput').value = '';
+        document.querySelectorAll('.filter-pill').forEach((btn) => {
+          const isAll = btn.dataset.filter === 'all';
+          btn.classList.toggle('bg-slateClinical', isAll);
+          btn.classList.toggle('text-white', isAll);
+          btn.classList.toggle('bg-white', !isAll);
+          btn.classList.toggle('text-inkMuted', !isAll);
+        });
+        renderApp();
+      });
+
+      // Delegated Clicks for SVG Tray Hotspots, Spot Pills, Tray Check Quiz, & APA Copy
+      document.body.addEventListener('click', (e) => {
+        // 1. SVG Hotspot or Spot Pill
+        const spotEl = e.target.closest('[data-spot]');
+        if (spotEl) {
+          const dietId = spotEl.dataset.diet;
+          const spotId = spotEl.dataset.spot;
+          state.selectedHotspots[dietId] = spotId;
+          renderApp();
+          return;
+        }
+
+        // 2. Clinical Tray Audit Toggle
+        const checkBtn = e.target.closest('[data-check-key]');
+        if (checkBtn) {
+          const key = checkBtn.dataset.checkKey;
+          state.revealedChecks[key] = !state.revealedChecks[key];
+          renderApp();
+          return;
+        }
+
+        // 3. Copy Single APA Citation
+        const copyBtn = e.target.closest('[data-copy-ref]');
+        if (copyBtn) {
+          const refObj = APA_REFERENCES.find((r) => r.id === copyBtn.dataset.copyRef);
+          if (refObj) {
+            copyTextToClipboard(refObj.plainText, 'APA 7th citation copied to clipboard.');
+          }
+        }
+      });
+
+      // Keyboard accessibility for SVG hotspots (Enter / Space)
+      document.body.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          const spotEl = e.target.closest('.tray-hotspot[data-spot]');
+          if (spotEl) {
+            e.preventDefault();
+            state.selectedHotspots[spotEl.dataset.diet] = spotEl.dataset.spot;
+            renderApp();
+          }
+        }
+      });
+
+      // Copy All APA Citations Button
+      document.getElementById('btnCopyAllCitations').addEventListener('click', () => {
+        const allText = APA_REFERENCES.map((r) => r.plainText).join('\n\n');
+        copyTextToClipboard(allText, 'All 6 APA 7th citations copied to clipboard.');
+      });
+    });
+  </script>
+</body>
+</html>
