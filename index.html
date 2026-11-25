@@ -96,7 +96,8 @@
       #matrixView {
         display: block !important;
       }
-      #explorerView {
+      #explorerView,
+      #simpleTermsView {
         display: none !important;
       }
       .matrix-table-wrapper {
@@ -177,6 +178,15 @@
                 <path d="M3 5h18M3 10h18M3 15h18M3 20h18M9 5v15M15 5v15"></path>
               </svg>
               Landscape Matrix Table
+            </button>
+            <button id="btnSimpleTermsView" type="button" role="tab" aria-selected="false"
+              class="px-3.5 py-2 rounded-md text-xs sm:text-sm font-semibold transition-all text-inkMuted hover:text-ink flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                <path d="M8 7h8M8 11h6"></path>
+              </svg>
+              Simple Key Terms Table
             </button>
           </div>
 
@@ -316,6 +326,92 @@
       </div>
     </div>
 
+    <!-- ===================================================================== -->
+    <!-- VIEW 3: SIMPLE KEY TERMS TABLE (5TH-GRADE READING LEVEL)              -->
+    <!-- ===================================================================== -->
+    <div id="simpleTermsView" class="hidden space-y-10">
+      <!-- Intro Banner -->
+      <div class="bg-sageSoft/70 border border-sage/25 rounded-xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <span class="font-mono text-[11px] uppercase tracking-widest text-sage font-bold">
+            Easy-to-Read Quick Guide · 5th-Grade Reading Level
+          </span>
+          <h2 class="font-serif text-xl sm:text-2xl font-bold text-ink mt-0.5">
+            Plain-English Diet Cheat Sheet &amp; Key Medical Words
+          </h2>
+          <p class="text-xs sm:text-sm text-inkMuted mt-1">
+            Short, simple phrases made for fast studying, patient teaching, and everyday clarity. Click any diet badge to jump straight to its full visual plate.
+          </p>
+        </div>
+        <span class="font-mono text-xs px-3 py-1.5 rounded-lg bg-white border border-sage/30 text-sage font-semibold shrink-0">
+          9 Diets + 15 Key Terms
+        </span>
+      </div>
+
+      <!-- PART A: THE 9 THERAPEUTIC DIETS IN PLAIN WORDS -->
+      <section aria-labelledby="simpleDietsHeading" class="space-y-3">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+          <div>
+            <span class="font-mono text-[11px] uppercase tracking-wider text-slateClinical font-semibold">Part A · Everyday Food Guide</span>
+            <h3 id="simpleDietsHeading" class="font-serif text-lg sm:text-xl font-bold text-ink">
+              The 9 Therapeutic Diets in Plain Words
+            </h3>
+          </div>
+          <span class="text-xs text-inkMuted">Filtered automatically by the top search bar &amp; category pills</span>
+        </div>
+
+        <div class="overflow-x-auto bg-white border border-borderHairline rounded-xl shadow-xs">
+          <table class="w-full min-w-[980px] border-collapse text-left text-xs sm:text-sm">
+            <thead>
+              <tr class="bg-ink text-paper">
+                <th scope="col" class="w-[15%] p-3.5 border border-ink font-semibold">Diet Name</th>
+                <th scope="col" class="w-[16%] p-3.5 border border-ink font-semibold">What It Is</th>
+                <th scope="col" class="w-[17%] p-3.5 border border-ink font-semibold">Who Needs It</th>
+                <th scope="col" class="w-[17%] p-3.5 border border-ink font-semibold">Eat This</th>
+                <th scope="col" class="w-[16%] p-3.5 border border-ink font-semibold">Skip This</th>
+                <th scope="col" class="w-[19%] p-3.5 border border-ink font-semibold">The Big Why</th>
+              </tr>
+            </thead>
+            <tbody id="simpleDietsTableBody">
+              <!-- Populated dynamically via JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- PART B: CLINICAL KEY TERMS MADE SIMPLE (5TH-GRADE GLOSSARY TABLE) -->
+      <section aria-labelledby="simpleGlossaryHeading" class="space-y-3">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-3">
+          <div>
+            <span class="font-mono text-[11px] uppercase tracking-wider text-terracotta font-semibold">Part B · Medical Words Translated</span>
+            <h3 id="simpleGlossaryHeading" class="font-serif text-lg sm:text-xl font-bold text-ink">
+              Clinical Key Terms Made Simple (5th-Grade Glossary)
+            </h3>
+          </div>
+          <div class="relative w-full md:w-72">
+            <input id="glossarySearchInput" type="search" placeholder="Filter glossary words or hooks..."
+              class="w-full px-3 py-1.5 text-xs sm:text-sm bg-white border border-borderHairline rounded-lg focus:outline-none focus:ring-2 focus:ring-sage/40 focus:border-sage placeholder:text-inkMuted/70" />
+          </div>
+        </div>
+
+        <div class="overflow-x-auto bg-white border border-borderHairline rounded-xl shadow-xs">
+          <table class="w-full min-w-[860px] border-collapse text-left text-xs sm:text-sm">
+            <thead>
+              <tr class="bg-slateClinical text-white">
+                <th scope="col" class="w-[22%] p-3.5 border border-slateClinical font-semibold">Medical / Nutrition Term</th>
+                <th scope="col" class="w-[30%] p-3.5 border border-slateClinical font-semibold">5th-Grade Meaning</th>
+                <th scope="col" class="w-[23%] p-3.5 border border-slateClinical font-semibold">Which Diet Uses It</th>
+                <th scope="col" class="w-[25%] p-3.5 border border-slateClinical font-semibold">Quick Memory Hook</th>
+              </tr>
+            </thead>
+            <tbody id="simpleGlossaryTableBody">
+              <!-- Populated dynamically via JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
     <!-- Empty Search State -->
     <div id="emptyState" class="hidden text-center py-16 bg-white border border-borderHairline rounded-xl">
       <p class="font-serif text-xl font-semibold text-ink mb-1">No matching therapeutic diets found</p>
@@ -449,6 +545,14 @@
         categories: ['gi'],
         accentColor: '#0E7490',
         traySubtitle: 'Click any item on the clinical tray to inspect transparency, osmolarity & GI absorption specs',
+        simple: {
+          nickname: 'See-Through Drinks Only',
+          whatItIs: 'Only clear liquids you can see right through.',
+          whoNeedsIt: 'People before a belly test, after surgery, or with bad vomiting.',
+          eatThis: 'Water, clear broth, apple juice, plain Jell-O, ice pops.',
+          skipThis: 'Milk, orange juice with pulp, solid food, red dyes.',
+          bigWhy: 'Keeps you hydrated while letting a sick stomach and gut take a break.'
+        },
         columns: {
           category: {
             content: 'Therapeutic Transition & Bowel-Prep Liquid Diet (Short-term: 24–48 hours maximum).',
@@ -521,6 +625,14 @@
         categories: ['gi', 'texture'],
         accentColor: '#2563EB',
         traySubtitle: 'Click any vessel on the tray to examine caloric density, viscosity & non-masticatory delivery',
+        simple: {
+          nickname: 'Pourable Smooth Foods',
+          whatItIs: 'Any smooth food that pours like a drink or melts in your mouth.',
+          whoNeedsIt: 'People with wired jaws, mouth surgery, or trouble chewing.',
+          eatThis: 'Milk, smooth yogurt, pudding, ice cream, strained cream soup.',
+          skipThis: 'Meat, bread, nuts, chunky soup, whole fruits or veggies.',
+          bigWhy: 'Gives your body protein and energy without needing to chew.'
+        },
         columns: {
           category: {
             content: 'Intermediate Pourable-Texture Diet (Bridges Clear Liquids and Soft/Regular Solids).',
@@ -593,6 +705,14 @@
         categories: ['gi', 'texture'],
         accentColor: '#2E5A44',
         traySubtitle: 'Click any item on the plate to inspect fiber softening, gastric emptying & tissue gentleness',
+        simple: {
+          nickname: 'Fork-Tender Gentle Foods',
+          whatItIs: 'Soft, moist foods you can easily mash with a fork.',
+          whoNeedsIt: 'People without teeth, with sore dentures, or an upset stomach.',
+          eatThis: 'Tender fish, scrambled eggs, mashed potatoes, ripe bananas.',
+          skipThis: 'Raw crunchy veggies, tough steak, nuts, popcorn, spicy food.',
+          bigWhy: 'Makes eating easy on tired jaws and gentle on a sore stomach.'
+        },
         columns: {
           category: {
             content: 'Texture-Tenderized & Mucosally Gentle Maintenance Diet (Long-term nutritionally complete).',
@@ -665,6 +785,14 @@
         categories: ['texture'],
         accentColor: '#B44C32',
         traySubtitle: 'Click elements on the IDDSI tray to inspect bolus cohesiveness, syringe flow & airway protection',
+        simple: {
+          nickname: 'Safe-Swallow Thickened Foods',
+          whatItIs: 'Smooth pureed foods and thickened drinks that move slowly.',
+          whoNeedsIt: 'People after a stroke or brain illness who choke easily.',
+          eatThis: 'Smooth blended meats, pudding, nectar-thick or honey-thick drinks.',
+          skipThis: 'Thin water, dry crackers, crumbly bread, soup with thin broth.',
+          bigWhy: 'Slows food down so it goes into the stomach, not the lungs.'
+        },
         columns: {
           category: {
             content: 'International Dysphagia Diet Standardisation Initiative (IDDSI Levels 0–7) Texture-Modified & Thickened-Liquid Regimen.',
@@ -737,6 +865,14 @@
         categories: ['metabolic'],
         accentColor: '#1E3A5F',
         traySubtitle: 'Click each component on the renal plate to inspect K⁺, PO₄³⁻, Na⁺ & protein clearance limits',
+        simple: {
+          nickname: 'Kidney-Saver Diet',
+          whatItIs: 'Meals low in salt, potassium, phosphorus, and extra protein.',
+          whoNeedsIt: 'People whose kidneys are weak or failing.',
+          eatThis: 'Egg whites, skinless chicken, white rice, apples, berries, cabbage.',
+          skipThis: 'Bananas, oranges, potatoes, cheese, dark sodas, salty meats.',
+          bigWhy: 'Stops toxic minerals from building up in the blood and hurting the heart.'
+        },
         columns: {
           category: {
             content: 'Electrolyte-, Mineral-, Fluid-, and Protein-Controlled Nephrology Diet (Tailored to CKD Stage 3–5 vs. Dialysis).',
@@ -809,6 +945,14 @@
         categories: ['metabolic'],
         accentColor: '#7C3AED',
         traySubtitle: 'Click elements on the urate-control plate to inspect purine load, renal excretion & hydration',
+        simple: {
+          nickname: 'Anti-Gout Joint Diet',
+          whatItIs: 'Foods low in purines paired with lots of plain water.',
+          whoNeedsIt: 'People with painful gout joint attacks or uric acid kidney stones.',
+          eatThis: 'Low-fat yogurt, eggs, cherries, whole grains, veggies, lots of water.',
+          skipThis: 'Liver, sardines, anchovies, shellfish, beer, sugary sodas.',
+          bigWhy: 'Stops sharp uric acid crystals from forming inside painful joints.'
+        },
         columns: {
           category: {
             content: 'Purine-Restricted, Uricosuric-Supportive Metabolic Diet (Adjunct to urate-lowering pharmacotherapy).',
@@ -881,6 +1025,14 @@
         categories: ['gi'],
         accentColor: '#9A6700',
         traySubtitle: 'Click items on the low-residue tray to inspect small-bowel absorption & colonic stool reduction',
+        simple: {
+          nickname: 'Low-Poop Bowel Rest Diet',
+          whatItIs: 'Low-fiber foods that leave almost no leftover waste in the gut.',
+          whoNeedsIt: 'People with swollen intestines (Crohn’s, colitis, or diverticulitis).',
+          eatThis: 'White bread, white rice, tender chicken, peeled cooked carrots.',
+          skipThis: 'Whole wheat, raw veggies, nuts, seeds, popcorn, beans.',
+          bigWhy: 'Makes stool small and soft so sore gut walls can heal without scraping.'
+        },
         columns: {
           category: {
             content: 'Fiber-Restricted (<10–15 g/day) & Stool-Volume-Minimizing Gastrointestinal Diet.',
@@ -953,6 +1105,14 @@
         categories: ['gi', 'metabolic'],
         accentColor: '#15803D',
         traySubtitle: 'Click elements on the high-fiber bowl to inspect soluble vs. insoluble fiber & hydration synergy',
+        simple: {
+          nickname: 'Gut-Mover Plant Diet',
+          whatItIs: 'Plant foods packed with roughage plus plenty of water.',
+          whoNeedsIt: 'People with constipation, hemorrhoids, or high cholesterol.',
+          eatThis: 'Oatmeal, beans, lentils, whole-wheat bread, apples with skin, water.',
+          skipThis: 'White bread, white rice, sugary pastries, dry fiber without water.',
+          bigWhy: 'Sweeps waste smoothly through the gut and lowers bad cholesterol.'
+        },
         columns: {
           category: {
             content: 'Fiber-Enriched Therapeutic Diet (25 g/day for women, 38 g/day for men, paired with ≥2–2.5 L fluids/day).',
@@ -1025,6 +1185,14 @@
         categories: ['metabolic'],
         accentColor: '#0F4C5C',
         traySubtitle: 'Click quadrants on the Diabetes Plate to inspect glycemic index, fiber pairing & insulin matching',
+        simple: {
+          nickname: 'Steady Blood-Sugar Diet',
+          whatItIs: 'Measuring carbs evenly at every meal with high-fiber veggies.',
+          whoNeedsIt: 'People with diabetes or prediabetes.',
+          eatThis: 'Broccoli, leafy greens, grilled fish, measured quinoa or berries.',
+          skipThis: 'Regular soda, candy, donuts, sweet tea, huge piles of white rice.',
+          bigWhy: 'Keeps blood sugar steady so it does not spike too high or crash too low.'
+        },
         columns: {
           category: {
             content: 'Glycemic-Regulated, Consistent-Carbohydrate Nutrition Therapy (Typically 45–60 g carb/meal or individualized per insulin-to-carb ratio).',
@@ -1088,6 +1256,102 @@
           { item: 'Skipping lunch completely after taking pre-meal rapid insulin', valid: false, reason: 'Fails: Unopposed exogenous insulin without consistent carb intake causes acute hypoglycemia.' },
           { item: 'Measured ½ cup blueberries with almonds & cottage cheese', valid: true, reason: 'Passes: Controlled 15g fruit carb paired with fat and protein prevents glucose spikes.' }
         ]
+      }
+    ];
+
+    // -------------------------------------------------------------------------
+    // 2B. 5TH-GRADE CLINICAL GLOSSARY TERMS DATA (15 ESSENTIAL TERMS)
+    // -------------------------------------------------------------------------
+    const SIMPLE_GLOSSARY = [
+      {
+        term: 'Aspiration',
+        meaning: 'When food or drink goes down the windpipe into the lungs by mistake.',
+        diets: ['dysphagia', 'clear-liquid'],
+        hook: 'Going down the "wrong pipe" into the lungs.'
+      },
+      {
+        term: 'Dysphagia',
+        meaning: 'Trouble swallowing safely because throat muscles are weak or slow.',
+        diets: ['dysphagia', 'soft-diet'],
+        hook: 'A slow or clumsy swallow reflex.'
+      },
+      {
+        term: 'Peristalsis',
+        meaning: 'Wave-like muscle squeezes that push food down your food tube and gut.',
+        diets: ['clear-liquid', 'low-residue', 'high-fiber'],
+        hook: 'Squeezing toothpaste from the bottom of the tube.'
+      },
+      {
+        term: 'Residue',
+        meaning: 'Leftover bits of food that your body cannot digest, which turn into poop.',
+        diets: ['clear-liquid', 'low-residue'],
+        hook: 'Leftover trash left behind in the gut.'
+      },
+      {
+        term: 'Purines',
+        meaning: 'Natural building blocks in organ meats and seafood that turn into uric acid.',
+        diets: ['low-purine'],
+        hook: 'Meat chemicals that turn into sharp joint needles.'
+      },
+      {
+        term: 'Uric Acid',
+        meaning: 'A body waste chemical that forms sharp crystals in toes and joints when too high.',
+        diets: ['low-purine'],
+        hook: 'Tiny glass-like needles inside a sore big toe.'
+      },
+      {
+        term: 'Electrolytes (Potassium & Phosphorus)',
+        meaning: 'Body minerals that control your heartbeat and bones; weak kidneys cannot clear them.',
+        diets: ['renal', 'clear-liquid'],
+        hook: 'Electric sparks that keep the heart beating steady.'
+      },
+      {
+        term: 'Glycemic Spike',
+        meaning: 'A fast, sudden jump in blood sugar right after eating sugary or white-flour foods.',
+        diets: ['carb-controlled'],
+        hook: 'A sugar rush shooting up a steep roller coaster.'
+      },
+      {
+        term: 'IDDSI Levels',
+        meaning: 'A global safety chart (0 to 7) that measures how thick drinks and soft foods must be.',
+        diets: ['dysphagia'],
+        hook: 'A thickness ruler for safe swallowing.'
+      },
+      {
+        term: 'NPO / Bowel Rest',
+        meaning: '"Nothing by mouth" — giving the stomach and intestines a break from digesting food.',
+        diets: ['clear-liquid', 'low-residue'],
+        hook: 'Putting a "Closed for Repairs" sign on the gut.'
+      },
+      {
+        term: 'Diverticulitis',
+        meaning: 'When tiny pouches in the colon wall get swollen, trapped with waste, and infected.',
+        diets: ['low-residue', 'high-fiber'],
+        hook: 'Tiny pockets in the gut getting irritated and sore.'
+      },
+      {
+        term: 'Soluble vs. Insoluble Fiber',
+        meaning: 'Soluble fiber turns into a soft gel; insoluble fiber acts like a broom to sweep stool out.',
+        diets: ['high-fiber', 'low-residue'],
+        hook: 'A soft sponge (soluble) + a gentle broom (insoluble).'
+      },
+      {
+        term: 'Mastication',
+        meaning: 'Chewing food with your teeth and mixing it with spit before swallowing.',
+        diets: ['full-liquid', 'soft-diet'],
+        hook: 'Your teeth acting like a food blender.'
+      },
+      {
+        term: 'Edema / Fluid Overload',
+        meaning: 'Extra water trapped in ankles, hands, or lungs because kidneys cannot pee it out.',
+        diets: ['renal'],
+        hook: 'A water balloon filling up too tight.'
+      },
+      {
+        term: 'Osmotic Pull',
+        meaning: 'When concentrated sugar or salt pulls extra water into the gut, causing watery diarrhea.',
+        diets: ['clear-liquid', 'low-residue'],
+        hook: 'Salt or sugar acting like a water magnet.'
       }
     ];
 
@@ -1501,9 +1765,10 @@
     // 4. APPLICATION STATE & RENDERING FUNCTIONS
     // -------------------------------------------------------------------------
     const state = {
-      viewMode: 'explorer', // 'explorer' | 'matrix'
+      viewMode: 'explorer', // 'explorer' | 'matrix' | 'simple'
       filter: 'all',        // 'all' | 'gi' | 'texture' | 'metabolic'
       search: '',
+      glossarySearch: '',
       selectedHotspots: {}, // dietId -> hotspotId
       revealedChecks: {}    // `${dietId}-${idx}` -> boolean
     };
@@ -1827,6 +2092,100 @@
         .join('');
     }
 
+    function renderSimpleTermsView(diets) {
+      // Part A: 9 Therapeutic Diets in Plain Words
+      const dietsTbody = document.getElementById('simpleDietsTableBody');
+      dietsTbody.innerHTML = diets
+        .map(
+          (diet, i) => `
+          <tr class="${i % 2 === 1 ? 'bg-paper/70' : 'bg-white'} align-top hover:bg-paperAlt/40 transition-colors">
+            <td class="p-3.5 border border-borderHairline">
+              <div class="flex items-center gap-1.5 mb-1">
+                <span class="font-mono text-[10px] font-bold px-1.5 py-0.5 rounded text-white" style="background-color: ${diet.accentColor}">${diet.number}</span>
+                <button type="button" data-jump-diet="${diet.id}"
+                  class="text-left font-serif text-sm font-bold text-ink hover:text-slateClinical underline decoration-borderHairline hover:decoration-slateClinical underline-offset-2">
+                  ${diet.name}
+                </button>
+              </div>
+              <span class="inline-block font-mono text-[10.5px] px-2 py-0.5 rounded bg-paperAlt text-inkMuted border border-borderHairline">
+                ${diet.simple.nickname}
+              </span>
+            </td>
+            <td class="p-3.5 border border-borderHairline text-ink leading-snug">
+              ${diet.simple.whatItIs}
+            </td>
+            <td class="p-3.5 border border-borderHairline text-ink leading-snug">
+              ${diet.simple.whoNeedsIt}
+            </td>
+            <td class="p-3.5 border border-borderHairline bg-sageSoft/30 text-ink leading-snug font-medium">
+              ${diet.simple.eatThis}
+            </td>
+            <td class="p-3.5 border border-borderHairline bg-terracottaSoft/30 text-ink leading-snug">
+              ${diet.simple.skipThis}
+            </td>
+            <td class="p-3.5 border border-borderHairline bg-slateSoft/30 text-ink leading-snug font-medium">
+              ${diet.simple.bigWhy}
+            </td>
+          </tr>`
+        )
+        .join('');
+
+      // Part B: 5th-Grade Clinical Glossary Table
+      const gQuery = (state.glossarySearch || state.search).trim().toLowerCase();
+      const filteredTerms = SIMPLE_GLOSSARY.filter((item) => {
+        if (!gQuery) return true;
+        return (
+          item.term.toLowerCase().includes(gQuery) ||
+          item.meaning.toLowerCase().includes(gQuery) ||
+          item.hook.toLowerCase().includes(gQuery)
+        );
+      });
+
+      const glossaryTbody = document.getElementById('simpleGlossaryTableBody');
+      if (!filteredTerms.length) {
+        glossaryTbody.innerHTML = `
+          <tr>
+            <td colspan="4" class="p-6 text-center text-inkMuted text-xs sm:text-sm">
+              No glossary terms match "<span class="font-semibold text-ink">${gQuery}</span>". Clear the glossary filter to see all 15 key terms.
+            </td>
+          </tr>`;
+        return;
+      }
+
+      glossaryTbody.innerHTML = filteredTerms
+        .map((item, i) => {
+          const dietBadges = item.diets
+            .map((dId) => {
+              const found = THERAPEUTIC_DIETS.find((d) => d.id === dId);
+              if (!found) return '';
+              return `
+                <button type="button" data-jump-diet="${found.id}"
+                  class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-white hover:bg-ink hover:text-paper border border-borderHairline text-ink transition-colors">
+                  <span class="w-1.5 h-1.5 rounded-full" style="background-color: ${found.accentColor}"></span>
+                  ${found.name.replace(' Diet', '').replace(' (IDDSI Framework)', '').replace(' (CKD / ESRD)', '').replace(' (Gout & Urate Control)', '').replace(' (Mechanical / GI Soft)', '').replace(' (25–38 g/day + Hydration)', '')}
+                </button>`;
+            })
+            .join(' ');
+
+          return `
+            <tr class="${i % 2 === 1 ? 'bg-paper/70' : 'bg-white'} align-top">
+              <td class="p-3.5 border border-borderHairline font-serif text-sm font-bold text-ink">
+                ${item.term}
+              </td>
+              <td class="p-3.5 border border-borderHairline text-ink leading-snug">
+                ${item.meaning}
+              </td>
+              <td class="p-3.5 border border-borderHairline">
+                <div class="flex flex-wrap gap-1.5">${dietBadges}</div>
+              </td>
+              <td class="p-3.5 border border-borderHairline bg-ochreSoft/45 text-ink leading-snug">
+                <span class="font-mono text-[10.5px] font-bold text-ochre uppercase mr-1">Think:</span>${item.hook}
+              </td>
+            </tr>`;
+        })
+        .join('');
+    }
+
     function renderReferences() {
       const list = document.getElementById('referencesList');
       list.innerHTML = APA_REFERENCES.map(
@@ -1861,11 +2220,13 @@
       const emptyState = document.getElementById('emptyState');
       const explorerView = document.getElementById('explorerView');
       const matrixView = document.getElementById('matrixView');
+      const simpleTermsView = document.getElementById('simpleTermsView');
 
       if (!diets.length) {
         emptyState.classList.remove('hidden');
         explorerView.classList.add('hidden');
         matrixView.classList.add('hidden');
+        simpleTermsView.classList.add('hidden');
         return;
       }
 
@@ -1873,14 +2234,11 @@
       renderQuickJumpNav(diets);
       renderExplorerView(diets);
       renderMatrixView(diets);
+      renderSimpleTermsView(diets);
 
-      if (state.viewMode === 'explorer') {
-        explorerView.classList.remove('hidden');
-        matrixView.classList.add('hidden');
-      } else {
-        explorerView.classList.add('hidden');
-        matrixView.classList.remove('hidden');
-      }
+      explorerView.classList.toggle('hidden', state.viewMode !== 'explorer');
+      matrixView.classList.toggle('hidden', state.viewMode !== 'matrix');
+      simpleTermsView.classList.toggle('hidden', state.viewMode !== 'simple');
     }
 
     // -------------------------------------------------------------------------
@@ -1893,24 +2251,29 @@
       // View Switchers
       const btnExplorer = document.getElementById('btnExplorerView');
       const btnMatrix = document.getElementById('btnMatrixView');
+      const btnSimpleTerms = document.getElementById('btnSimpleTermsView');
 
-      btnExplorer.addEventListener('click', () => {
-        state.viewMode = 'explorer';
-        btnExplorer.classList.add('bg-ink', 'text-paper', 'shadow-sm');
-        btnExplorer.classList.remove('text-inkMuted');
-        btnMatrix.classList.remove('bg-ink', 'text-paper', 'shadow-sm');
-        btnMatrix.classList.add('text-inkMuted');
+      function setActiveTab(mode) {
+        state.viewMode = mode;
+        const tabs = [
+          { el: btnExplorer, key: 'explorer' },
+          { el: btnMatrix, key: 'matrix' },
+          { el: btnSimpleTerms, key: 'simple' }
+        ];
+        tabs.forEach(({ el, key }) => {
+          const isSelected = key === mode;
+          el.setAttribute('aria-selected', String(isSelected));
+          el.classList.toggle('bg-ink', isSelected);
+          el.classList.toggle('text-paper', isSelected);
+          el.classList.toggle('shadow-sm', isSelected);
+          el.classList.toggle('text-inkMuted', !isSelected);
+        });
         renderApp();
-      });
+      }
 
-      btnMatrix.addEventListener('click', () => {
-        state.viewMode = 'matrix';
-        btnMatrix.classList.add('bg-ink', 'text-paper', 'shadow-sm');
-        btnMatrix.classList.remove('text-inkMuted');
-        btnExplorer.classList.remove('bg-ink', 'text-paper', 'shadow-sm');
-        btnExplorer.classList.add('text-inkMuted');
-        renderApp();
-      });
+      btnExplorer.addEventListener('click', () => setActiveTab('explorer'));
+      btnMatrix.addEventListener('click', () => setActiveTab('matrix'));
+      btnSimpleTerms.addEventListener('click', () => setActiveTab('simple'));
 
       // Print Landscape Button
       document.getElementById('btnPrintLandscape').addEventListener('click', () => {
@@ -1938,11 +2301,20 @@
         renderApp();
       });
 
+      // Glossary Dedicated Search Input
+      document.getElementById('glossarySearchInput').addEventListener('input', (e) => {
+        state.glossarySearch = e.target.value;
+        renderSimpleTermsView(getFilteredDiets());
+      });
+
       // Reset Filters
       document.getElementById('btnResetFilters').addEventListener('click', () => {
         state.filter = 'all';
         state.search = '';
+        state.glossarySearch = '';
         document.getElementById('searchInput').value = '';
+        const gInput = document.getElementById('glossarySearchInput');
+        if (gInput) gInput.value = '';
         document.querySelectorAll('.filter-pill').forEach((btn) => {
           const isAll = btn.dataset.filter === 'all';
           btn.classList.toggle('bg-slateClinical', isAll);
@@ -1953,8 +2325,22 @@
         renderApp();
       });
 
-      // Delegated Clicks for SVG Tray Hotspots, Spot Pills, Tray Check Quiz, & APA Copy
+      // Delegated Clicks for SVG Tray Hotspots, Spot Pills, Tray Check Quiz, Jump Links, & APA Copy
       document.body.addEventListener('click', (e) => {
+        // 0. Jump from Simple Key Terms Table directly to Diet Card
+        const jumpBtn = e.target.closest('[data-jump-diet]');
+        if (jumpBtn) {
+          const targetDietId = jumpBtn.dataset.jumpDiet;
+          setActiveTab('explorer');
+          requestAnimationFrame(() => {
+            const card = document.getElementById(`diet-${targetDietId}`);
+            if (card) {
+              card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          });
+          return;
+        }
+
         // 1. SVG Hotspot or Spot Pill
         const spotEl = e.target.closest('[data-spot]');
         if (spotEl) {
