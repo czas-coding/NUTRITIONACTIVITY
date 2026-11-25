@@ -282,10 +282,10 @@
       <div class="mb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
         <div>
           <h2 class="font-serif text-xl sm:text-2xl font-bold text-ink">
-            Master Landscape Reference Matrix (All 5 Columns &times; 9 Diets)
+            Master Landscape Reference Matrix (All 6 Columns &times; 9 Diets)
           </h2>
           <p class="text-xs sm:text-sm text-inkMuted">
-            Structured horizontally for rapid clinical comparison and landscape PDF printing.
+            Structured horizontally with target patient populations, mechanistic Why &rarr; Because logic, and landscape PDF printing.
           </p>
         </div>
         <span class="font-mono text-xs px-2.5 py-1 rounded bg-ochreSoft text-ochre border border-ochre/25 no-print">
@@ -294,27 +294,31 @@
       </div>
 
       <div class="matrix-table-wrapper overflow-x-auto bg-white border border-borderHairline rounded-xl shadow-xs">
-        <table class="clinical-matrix w-full min-w-[1220px] border-collapse text-left text-xs sm:text-[13px] leading-relaxed">
+        <table class="clinical-matrix w-full min-w-[1360px] border-collapse text-left text-xs sm:text-[13px] leading-relaxed">
           <thead>
             <tr class="bg-slateClinical text-white">
-              <th scope="col" class="w-[14%] p-3.5 border border-slateClinical font-semibold">
+              <th scope="col" class="w-[13%] p-3.5 border border-slateClinical font-semibold">
                 1. Diet Category<br />
                 <span class="font-mono text-[10px] font-normal text-slate-200">Classification + Why / Because</span>
               </th>
-              <th scope="col" class="w-[21%] p-3.5 border border-slateClinical font-semibold">
-                2. Indication / Pathophysiology<br />
+              <th scope="col" class="w-[15%] p-3.5 border border-slateClinical font-semibold">
+                2. Who Usually Uses It<br />
+                <span class="font-mono text-[10px] font-normal text-slate-200">Target Patient Populations</span>
+              </th>
+              <th scope="col" class="w-[18%] p-3.5 border border-slateClinical font-semibold">
+                3. Indication / Pathophysiology<br />
                 <span class="font-mono text-[10px] font-normal text-slate-200">Clinical States + Why / Because</span>
               </th>
-              <th scope="col" class="w-[21%] p-3.5 border border-slateClinical font-semibold">
-                3. Allowed Food / Examples<br />
+              <th scope="col" class="w-[18%] p-3.5 border border-slateClinical font-semibold">
+                4. Allowed Food / Examples<br />
                 <span class="font-mono text-[10px] font-normal text-slate-200">Permitted Items + Why / Because</span>
               </th>
-              <th scope="col" class="w-[22%] p-3.5 border border-slateClinical font-semibold">
-                4. Prohibited / High-Risk Food<br />
+              <th scope="col" class="w-[18%] p-3.5 border border-slateClinical font-semibold">
+                5. Prohibited / High-Risk Food<br />
                 <span class="font-mono text-[10px] font-normal text-slate-200">Restricted Items + Why / Because</span>
               </th>
-              <th scope="col" class="w-[22%] p-3.5 border border-slateClinical font-semibold">
-                5. Rationale<br />
+              <th scope="col" class="w-[18%] p-3.5 border border-slateClinical font-semibold">
+                6. Rationale<br />
                 <span class="font-mono text-[10px] font-normal text-slate-200">Therapeutic Goal + Why / Because</span>
               </th>
             </tr>
@@ -480,14 +484,26 @@
         plainText: 'Cichero, J. A. Y., Lam, P., Steele, C. M., Hanson, B., Chen, J., Dantas, R. O., Duivestein, J., Kayashita, J., Lecko, C., Murray, J., Pillay, M., Riquelme, L., & Stanschus, S. (2017). Development of international terminology and definitions for texture-modified foods and thickened fluids used in dysphagia management: The IDDSI framework. Dysphagia, 32(2), 293–314. https://doi.org/10.1007/s00455-016-9758-y'
       },
       {
-        id: 'ref-dahl',
-        topic: 'High-Fiber & Low-Residue Physiology',
-        authorsYear: 'Dahl, W. J., & Stewart, M. L. (2015).',
-        title: 'Position of the Academy of Nutrition and Dietetics: Health implications of dietary fiber.',
-        journal: 'Journal of the Academy of Nutrition and Dietetics',
-        volumeIssuePages: '115(11), 1861–1870.',
-        url: 'https://doi.org/10.1016/j.jand.2015.09.003',
-        plainText: 'Dahl, W. J., & Stewart, M. L. (2015). Position of the Academy of Nutrition and Dietetics: Health implications of dietary fiber. Journal of the Academy of Nutrition and Dietetics, 115(11), 1861–1870. https://doi.org/10.1016/j.jand.2015.09.003'
+        id: 'ref-daley-gi',
+        topic: 'Clear Liquid, Full Liquid, Soft & Low-Residue Diets',
+        authorsYear: 'Daley, S. F., & Sharma, S. (2025).',
+        title: 'Therapeutic diets for the management of gastrointestinal conditions and preoperative and postoperative care. In',
+        journal: 'StatPearls',
+        volumeIssuePages: '. StatPearls Publishing.',
+        isBookChapter: true,
+        url: 'https://www.ncbi.nlm.nih.gov/books/NBK538500/',
+        plainText: 'Daley, S. F., & Sharma, S. (2025). Therapeutic diets for the management of gastrointestinal conditions and preoperative and postoperative care. In StatPearls. StatPearls Publishing. https://www.ncbi.nlm.nih.gov/books/NBK538500/'
+      },
+      {
+        id: 'ref-daley-fiber',
+        topic: 'High-Fiber & Bowel Motility Physiology',
+        authorsYear: 'Daley, S. F., & Vadakekut, E. S. (2026).',
+        title: 'The role of dietary fiber in health promotion and disease prevention: A practical guide for clinicians. In',
+        journal: 'StatPearls',
+        volumeIssuePages: '. StatPearls Publishing.',
+        isBookChapter: true,
+        url: 'https://www.ncbi.nlm.nih.gov/books/NBK559033/',
+        plainText: 'Daley, S. F., & Vadakekut, E. S. (2026). The role of dietary fiber in health promotion and disease prevention: A practical guide for clinicians. In StatPearls. StatPearls Publishing. https://www.ncbi.nlm.nih.gov/books/NBK559033/'
       },
       {
         id: 'ref-evert',
@@ -500,40 +516,31 @@
         plainText: 'Evert, A. B., Dennison, M., Gardner, C. D., Garvey, W. T., Lau, K. H. K., MacLeod, J., Mitri, J., Pereira, R. F., Rawlings, K., Robinson, S., Saslow, L., Uelmen, S., Urbanski, P. B., & Yancy, W. S. (2019). Nutrition therapy for adults with diabetes or prediabetes: A consensus report. Diabetes Care, 42(5), 731–754. https://doi.org/10.2337/dci19-0014'
       },
       {
-        id: 'ref-fitzgerald',
-        topic: 'Low-Purine Diet & Gout Management',
-        authorsYear: 'FitzGerald, J. D., Dalbeth, N., Mikuls, T., Brignardello-Petersen, R., Guyatt, G., Abeles, A. M., Gelber, A. C., Harrold, L. R., Khanna, D., King, C., Levy, G., Libbey, C., Mount, D., Pillinger, M. H., Rosenthal, A., Singh, J. A., Sims, J. E., Smith, B. J., Wenger, N. S., ... Poon, S. (2020).',
-        title: '2020 American College of Rheumatology guideline for the management of gout.',
-        journal: 'Arthritis & Rheumatology',
-        volumeIssuePages: '72(6), 879–895.',
-        url: 'https://doi.org/10.1002/art.41247',
-        plainText: 'FitzGerald, J. D., Dalbeth, N., Mikuls, T., Brignardello-Petersen, R., Guyatt, G., Abeles, A. M., Gelber, A. C., Harrold, L. R., Khanna, D., King, C., Levy, G., Libbey, C., Mount, D., Pillinger, M. H., Rosenthal, A., Singh, J. A., Sims, J. E., Smith, B. J., Wenger, N. S., ... Poon, S. (2020). 2020 American College of Rheumatology guideline for the management of gout. Arthritis & Rheumatology, 72(6), 879–895. https://doi.org/10.1002/art.41247'
+        id: 'ref-ikizler',
+        topic: 'Renal Diet & Chronic Kidney Disease (KDOQI)',
+        authorsYear: 'Ikizler, T. A., Burrowes, J. D., Byham-Gray, L. D., Campbell, K. L., Carrero, J.-J., Chan, W., Fouque, D., Friedman, A. N., Ghaddar, S., Goldstein-Fuchs, D. J., Kaysen, G. A., Kopple, J. D., Teta, D., Wang, A. Y.-M., & Cuppari, L. (2020).',
+        title: 'KDOQI clinical practice guideline for nutrition in CKD: 2020 update.',
+        journal: 'American Journal of Kidney Diseases',
+        volumeIssuePages: '76(3, Suppl. 1), S1–S107.',
+        url: 'https://doi.org/10.1053/j.ajkd.2020.05.006',
+        plainText: 'Ikizler, T. A., Burrowes, J. D., Byham-Gray, L. D., Campbell, K. L., Carrero, J.-J., Chan, W., Fouque, D., Friedman, A. N., Ghaddar, S., Goldstein-Fuchs, D. J., Kaysen, G. A., Kopple, J. D., Teta, D., Wang, A. Y.-M., & Cuppari, L. (2020). KDOQI clinical practice guideline for nutrition in CKD: 2020 update. American Journal of Kidney Diseases, 76(3, Suppl. 1), S1–S107. https://doi.org/10.1053/j.ajkd.2020.05.006'
       },
       {
-        id: 'ref-nguyen',
-        topic: 'Clear Liquid vs. Low-Residue Bowel Prep',
-        authorsYear: 'Nguyen, D. L., Jamal, M. M., Nguyen, E. T., Puli, S. R., & Bechtold, M. L. (2016).',
-        title: 'Low-residue versus clear liquid diet before colonoscopy: A meta-analysis of randomized, controlled trials.',
-        journal: 'Gastrointestinal Endoscopy',
-        volumeIssuePages: '83(3), 499–507.e1.',
-        url: 'https://doi.org/10.1016/j.gie.2015.09.045',
-        plainText: 'Nguyen, D. L., Jamal, M. M., Nguyen, E. T., Puli, S. R., & Bechtold, M. L. (2016). Low-residue versus clear liquid diet before colonoscopy: A meta-analysis of randomized, controlled trials. Gastrointestinal Endoscopy, 83(3), 499–507.e1. https://doi.org/10.1016/j.gie.2015.09.045'
-      },
-      {
-        id: 'ref-stevens',
-        topic: 'Renal Diet & Chronic Kidney Disease (KDIGO)',
-        authorsYear: 'Stevens, P. E., Ahmed, S. B., Carrero, J. J., Foster, B., Francis, A., Hall, R. K., Herrington, W. G., Hill, G., Inker, L. A., Kazancıoğlu, R., Lamb, E., Lin, P., Madero, M., McIntyre, N., Morrow, K., Roberts, G., Sabanayagam, D., Schaeffner, E., Shlipak, M., ... Yang, C.-W. (2024).',
-        title: 'KDIGO 2024 clinical practice guideline for the evaluation and management of chronic kidney disease.',
-        journal: 'Kidney International',
-        volumeIssuePages: '105(4S), S117–S314.',
-        url: 'https://doi.org/10.1016/j.kint.2023.10.018',
-        plainText: 'Stevens, P. E., Ahmed, S. B., Carrero, J. J., Foster, B., Francis, A., Hall, R. K., Herrington, W. G., Hill, G., Inker, L. A., Kazancıoğlu, R., Lamb, E., Lin, P., Madero, M., McIntyre, N., Morrow, K., Roberts, G., Sabanayagam, D., Schaeffner, E., Shlipak, M., ... Yang, C.-W. (2024). KDIGO 2024 clinical practice guideline for the evaluation and management of chronic kidney disease. Kidney International, 105(4S), S117–S314. https://doi.org/10.1016/j.kint.2023.10.018'
+        id: 'ref-leslie',
+        topic: 'Low-Purine Diet & Hyperuricemia / Gout',
+        authorsYear: 'Leslie, S. W., & Minter, D. A. (2023).',
+        title: 'Hyperuricemia. In',
+        journal: 'StatPearls',
+        volumeIssuePages: '. StatPearls Publishing.',
+        isBookChapter: true,
+        url: 'https://www.ncbi.nlm.nih.gov/books/NBK459218/',
+        plainText: 'Leslie, S. W., & Minter, D. A. (2023). Hyperuricemia. In StatPearls. StatPearls Publishing. https://www.ncbi.nlm.nih.gov/books/NBK459218/'
       }
     ];
 
     // -------------------------------------------------------------------------
     // 2. COMPREHENSIVE 9 THERAPEUTIC DIETS DATASET
-    //    Includes all 5 columns with explicit CONTENT + WHY + BECAUSE per column,
+    //    Includes targetUsers, all 5 columns with explicit CONTENT + WHY + BECAUSE,
     //    plus interactive SVG tray hotspots and tray audit quiz items.
     // -------------------------------------------------------------------------
     const THERAPEUTIC_DIETS = [
@@ -545,10 +552,15 @@
         categories: ['gi'],
         accentColor: '#0E7490',
         traySubtitle: 'Click any item on the clinical tray to inspect transparency, osmolarity & GI absorption specs',
+        targetUsers: [
+          'Patients preparing for diagnostic bowel procedures (e.g., colonoscopy) or gastrointestinal surgery',
+          'Post-operative patients initiating their first oral intake after anesthesia or bowel rest',
+          'Patients experiencing acute nausea, vomiting, severe diarrhea, or acute gastroenteritis'
+        ],
         simple: {
           nickname: 'See-Through Drinks Only',
           whatItIs: 'Only clear liquids you can see right through.',
-          whoNeedsIt: 'People before a belly test, after surgery, or with bad vomiting.',
+          whoNeedsIt: 'People getting a colonoscopy, waking up after surgery, or having bad vomiting and diarrhea.',
           eatThis: 'Water, clear broth, apple juice, plain Jell-O, ice pops.',
           skipThis: 'Milk, orange juice with pulp, solid food, red dyes.',
           bigWhy: 'Keeps you hydrated while letting a sick stomach and gut take a break.'
@@ -625,10 +637,14 @@
         categories: ['gi', 'texture'],
         accentColor: '#2563EB',
         traySubtitle: 'Click any vessel on the tray to examine caloric density, viscosity & non-masticatory delivery',
+        targetUsers: [
+          'Post-operative or recovering patients transitioning from a clear liquid diet toward solid foods',
+          'Patients temporarily unable to chew, swallow, or tolerate solid foods (e.g., after oral, facial, or jaw surgery, or during acute illness)'
+        ],
         simple: {
           nickname: 'Pourable Smooth Foods',
           whatItIs: 'Any smooth food that pours like a drink or melts in your mouth.',
-          whoNeedsIt: 'People with wired jaws, mouth surgery, or trouble chewing.',
+          whoNeedsIt: 'People moving up from clear liquids after surgery, or people with wired jaws or mouth surgery who cannot chew.',
           eatThis: 'Milk, smooth yogurt, pudding, ice cream, strained cream soup.',
           skipThis: 'Meat, bread, nuts, chunky soup, whole fruits or veggies.',
           bigWhy: 'Gives your body protein and energy without needing to chew.'
@@ -705,10 +721,15 @@
         categories: ['gi', 'texture'],
         accentColor: '#2E5A44',
         traySubtitle: 'Click any item on the plate to inspect fiber softening, gastric emptying & tissue gentleness',
+        targetUsers: [
+          'Patients with poor dental health, missing teeth, ill-fitting dentures, or mouth/gum sores',
+          'Patients recovering from head, neck, oral, or gastrointestinal surgery',
+          'Patients too weak or fatigued to chew tough foods, or those with mild gastrointestinal upset (e.g., gastritis, GERD, ulcers)'
+        ],
         simple: {
           nickname: 'Fork-Tender Gentle Foods',
           whatItIs: 'Soft, moist foods you can easily mash with a fork.',
-          whoNeedsIt: 'People without teeth, with sore dentures, or an upset stomach.',
+          whoNeedsIt: 'People with missing teeth, sore gums, weak chewing muscles, or mild stomach upset like acid reflux or ulcers.',
           eatThis: 'Tender fish, scrambled eggs, mashed potatoes, ripe bananas.',
           skipThis: 'Raw crunchy veggies, tough steak, nuts, popcorn, spicy food.',
           bigWhy: 'Makes eating easy on tired jaws and gentle on a sore stomach.'
@@ -785,10 +806,14 @@
         categories: ['texture'],
         accentColor: '#B44C32',
         traySubtitle: 'Click elements on the IDDSI tray to inspect bolus cohesiveness, syringe flow & airway protection',
+        targetUsers: [
+          'Stroke survivors and patients with neurological conditions affecting swallowing coordination (e.g., Parkinson\'s disease, multiple sclerosis, dementia, motor neuron diseases)',
+          'Patients with structural narrowing of the throat/esophagus, head and neck cancer, or post-extubation swallowing impairment'
+        ],
         simple: {
           nickname: 'Safe-Swallow Thickened Foods',
           whatItIs: 'Smooth pureed foods and thickened drinks that move slowly.',
-          whoNeedsIt: 'People after a stroke or brain illness who choke easily.',
+          whoNeedsIt: 'Stroke survivors, people with Parkinson’s or dementia, or patients with throat narrowing who choke easily.',
           eatThis: 'Smooth blended meats, pudding, nectar-thick or honey-thick drinks.',
           skipThis: 'Thin water, dry crackers, crumbly bread, soup with thin broth.',
           bigWhy: 'Slows food down so it goes into the stomach, not the lungs.'
@@ -865,10 +890,14 @@
         categories: ['metabolic'],
         accentColor: '#1E3A5F',
         traySubtitle: 'Click each component on the renal plate to inspect K⁺, PO₄³⁻, Na⁺ & protein clearance limits',
+        targetUsers: [
+          'Patients with acute kidney injury (AKI) or chronic kidney disease (CKD)',
+          'Patients with end-stage renal disease (ESRD) undergoing hemodialysis or peritoneal dialysis'
+        ],
         simple: {
           nickname: 'Kidney-Saver Diet',
           whatItIs: 'Meals low in salt, potassium, phosphorus, and extra protein.',
-          whoNeedsIt: 'People whose kidneys are weak or failing.',
+          whoNeedsIt: 'People with sudden kidney injury, chronic kidney disease, or kidney failure on dialysis.',
           eatThis: 'Egg whites, skinless chicken, white rice, apples, berries, cabbage.',
           skipThis: 'Bananas, oranges, potatoes, cheese, dark sodas, salty meats.',
           bigWhy: 'Stops toxic minerals from building up in the blood and hurting the heart.'
@@ -945,10 +974,14 @@
         categories: ['metabolic'],
         accentColor: '#7C3AED',
         traySubtitle: 'Click elements on the urate-control plate to inspect purine load, renal excretion & hydration',
+        targetUsers: [
+          'Patients diagnosed with gout (to prevent painful uric acid crystal flares in joints)',
+          'Patients with hyperuricemia (elevated blood uric acid) or recurrent uric acid kidney stones (nephrolithiasis)'
+        ],
         simple: {
           nickname: 'Anti-Gout Joint Diet',
           whatItIs: 'Foods low in purines paired with lots of plain water.',
-          whoNeedsIt: 'People with painful gout joint attacks or uric acid kidney stones.',
+          whoNeedsIt: 'People with painful gout joint flares, high blood uric acid, or uric acid kidney stones.',
           eatThis: 'Low-fat yogurt, eggs, cherries, whole grains, veggies, lots of water.',
           skipThis: 'Liver, sardines, anchovies, shellfish, beer, sugary sodas.',
           bigWhy: 'Stops sharp uric acid crystals from forming inside painful joints.'
@@ -1025,10 +1058,15 @@
         categories: ['gi'],
         accentColor: '#9A6700',
         traySubtitle: 'Click items on the low-residue tray to inspect small-bowel absorption & colonic stool reduction',
+        targetUsers: [
+          'Patients experiencing acute flares of inflammatory bowel disease (Crohn\'s disease or ulcerative colitis) or acute diverticulitis',
+          'Patients preparing for a colonoscopy or recovering from bowel surgery',
+          'Patients with partial bowel obstruction, narrowed intestinal lumen, or severe diarrhea'
+        ],
         simple: {
           nickname: 'Low-Poop Bowel Rest Diet',
           whatItIs: 'Low-fiber foods that leave almost no leftover waste in the gut.',
-          whoNeedsIt: 'People with swollen intestines (Crohn’s, colitis, or diverticulitis).',
+          whoNeedsIt: 'People having Crohn’s or colitis flares, diverticulitis, bowel surgery recovery, or partial gut blockage.',
           eatThis: 'White bread, white rice, tender chicken, peeled cooked carrots.',
           skipThis: 'Whole wheat, raw veggies, nuts, seeds, popcorn, beans.',
           bigWhy: 'Makes stool small and soft so sore gut walls can heal without scraping.'
@@ -1105,10 +1143,14 @@
         categories: ['gi', 'metabolic'],
         accentColor: '#15803D',
         traySubtitle: 'Click elements on the high-fiber bowl to inspect soluble vs. insoluble fiber & hydration synergy',
+        targetUsers: [
+          'Patients with chronic constipation, hemorrhoids, or asymptomatic diverticulosis (to prevent pouch inflammation)',
+          'Patients managing hyperlipidemia (high LDL cholesterol), type 2 diabetes, metabolic syndrome, or weight management'
+        ],
         simple: {
           nickname: 'Gut-Mover Plant Diet',
           whatItIs: 'Plant foods packed with roughage plus plenty of water.',
-          whoNeedsIt: 'People with constipation, hemorrhoids, or high cholesterol.',
+          whoNeedsIt: 'People with chronic constipation, hemorrhoids, diverticulosis, high cholesterol, or type 2 diabetes.',
           eatThis: 'Oatmeal, beans, lentils, whole-wheat bread, apples with skin, water.',
           skipThis: 'White bread, white rice, sugary pastries, dry fiber without water.',
           bigWhy: 'Sweeps waste smoothly through the gut and lowers bad cholesterol.'
@@ -1185,10 +1227,14 @@
         categories: ['metabolic'],
         accentColor: '#0F4C5C',
         traySubtitle: 'Click quadrants on the Diabetes Plate to inspect glycemic index, fiber pairing & insulin matching',
+        targetUsers: [
+          'Patients with Type 1 diabetes mellitus, Type 2 diabetes mellitus, gestational diabetes, or prediabetes',
+          'Patients with insulin resistance or reactive hypoglycemia who require steady blood glucose control'
+        ],
         simple: {
           nickname: 'Steady Blood-Sugar Diet',
           whatItIs: 'Measuring carbs evenly at every meal with high-fiber veggies.',
-          whoNeedsIt: 'People with diabetes or prediabetes.',
+          whoNeedsIt: 'People with Type 1 or Type 2 diabetes, pregnancy diabetes, prediabetes, or sudden low blood sugar.',
           eatThis: 'Broccoli, leafy greens, grilled fish, measured quinoa or berries.',
           skipThis: 'Regular soda, candy, donuts, sweet tea, huge piles of white rice.',
           bigWhy: 'Keeps blood sugar steady so it does not spike too high or crash too low.'
@@ -1820,6 +1866,7 @@
         const searchableBlob = [
           diet.name,
           diet.badge,
+          ...(diet.targetUsers || []),
           ...Object.values(diet.columns).flatMap((col) => [col.content, col.why, col.because]),
           ...diet.hotspots.flatMap((h) => [h.label, h.tag, h.note])
         ]
@@ -1916,6 +1963,28 @@
                       return `<span class="font-mono text-[11px] px-2.5 py-1 rounded-full bg-white border border-borderHairline text-inkMuted font-medium">${labelMap[cat]}</span>`;
                     })
                     .join('')}
+                </div>
+              </div>
+
+              <!-- Who Usually Uses / Is Prescribed This Diet Banner -->
+              <div class="px-5 sm:px-7 py-3.5 sm:py-4 border-b border-borderHairline bg-slateSoft/45">
+                <div class="flex flex-col lg:flex-row lg:items-start gap-2.5 lg:gap-5">
+                  <div class="shrink-0 flex items-center gap-2 pt-0.5">
+                    <span class="inline-flex items-center justify-center w-6 h-6 rounded-md bg-slateClinical text-white">
+                      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                      </svg>
+                    </span>
+                    <span class="font-mono text-[11px] uppercase tracking-wider font-bold text-slateClinical">
+                      Who Usually Uses / Is Prescribed This Diet:
+                    </span>
+                  </div>
+                  <ul class="space-y-1 text-xs sm:text-[13.5px] text-ink leading-snug list-disc pl-5">
+                    ${diet.targetUsers.map((user) => `<li class="font-medium">${user}</li>`).join('')}
+                  </ul>
                 </div>
               </div>
 
@@ -2075,6 +2144,11 @@
               </div>
               ${renderCausalBlock(diet.columns.category, true)}
             </td>
+            <td class="p-3 border border-borderHairline bg-paperAlt/35">
+              <ul class="space-y-1.5 list-disc pl-4 text-xs text-ink font-medium leading-snug">
+                ${diet.targetUsers.map((u) => `<li>${u}</li>`).join('')}
+              </ul>
+            </td>
             <td class="p-3 border border-borderHairline">
               ${renderCausalBlock(diet.columns.indication, true)}
             </td>
@@ -2188,15 +2262,19 @@
 
     function renderReferences() {
       const list = document.getElementById('referencesList');
-      list.innerHTML = APA_REFERENCES.map(
-        (ref) => `
+      list.innerHTML = APA_REFERENCES.map((ref) => {
+        const formattedPublication = ref.isBookChapter
+          ? `${ref.authorsYear} ${ref.title} <em class="italic">${ref.journal}</em>${ref.volumeIssuePages}`
+          : `${ref.authorsYear} ${ref.title} <em class="italic">${ref.journal}</em>, <em class="italic">${ref.volumeIssuePages}</em>`;
+
+        return `
           <div class="bg-white border border-borderHairline rounded-xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-start justify-between gap-4 shadow-xs">
             <div class="space-y-1.5">
               <span class="font-mono text-[10.5px] uppercase tracking-wider px-2 py-0.5 rounded bg-paperAlt text-inkMuted border border-borderHairline font-semibold">
                 ${ref.topic}
               </span>
               <p class="text-xs sm:text-sm text-ink leading-relaxed pl-6 -indent-6">
-                ${ref.authorsYear} ${ref.title} <em class="italic">${ref.journal}</em>, <em class="italic">${ref.volumeIssuePages}</em>
+                ${formattedPublication}
                 <a href="${ref.url}" target="_blank" rel="noopener noreferrer"
                   class="text-slateClinical hover:text-terracotta underline decoration-slateClinical/40 underline-offset-2 font-mono text-xs break-all ml-1">
                   ${ref.url}
@@ -2211,8 +2289,8 @@
               </svg>
               Copy APA
             </button>
-          </div>`
-      ).join('');
+          </div>`;
+      }).join('');
     }
 
     function renderApp() {
